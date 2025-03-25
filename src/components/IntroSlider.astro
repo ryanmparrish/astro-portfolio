@@ -1,0 +1,17 @@
+---
+import Slider from "../function-components/Slider.jsx";
+const { introSlides } = Astro.props;
+---
+
+<div class="intro-slider">
+  <div class="slider-container">
+    <Slider list={introSlides.slide_list} client:load />
+  </div>
+</div>
+
+<style>
+    .intro-slider {
+        display: block;
+        position: relative;
+    }
+</style>

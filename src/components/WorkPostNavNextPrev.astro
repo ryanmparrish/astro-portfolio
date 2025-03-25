@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+
+const posts = (await getCollection('work'))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const currentPostIndex = posts.findIndex((post) => post.id == Astro.params.slug);
+const previousPost = currentPostIndex + 1 === posts.length ? undefined : posts[currentPostIndex + 1];
+const nextPost = currentPostIndex === 0 ? undefined : posts[currentPostIndex - 1];
+---
+
+{
+  (previousPost || nextPost) && (
+    <div>
+      <h3>See more work...</h3>
+      <nav>
+        { previousPost && ( <p><a href={`/work/${previousPost.id}/`}><Icon icon="arrow-left" />{previousPost.data.title}</a></p> ) }
+        { nextPost && ( <p><a href={`/work/${nextPost.id}/`}>{nextPost.data.title}<Icon icon="arrow-right" /></a></p> ) }
+      </nav>
+    </div>
+  )
+}
+
+<style>
+
+  h3 {
+		border-top: 1px solid var(--gray-800);
+		font-size: var(--text-l);
+		text-align: center;
+		padding: 3rem 1.5rem;
+	}
+
+	nav {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		padding: 7rem 1.5rem;
+	}
+
+	nav a {
+		text-decoration: 1px solid underline transparent;
+		text-underline-offset: 0.25em;
+		transition: text-decoration-color var(--theme-transition);
+	}
+
+	nav a:hover {
+		text-decoration-color: currentColor;
+	}
+	
+	@media (min-width: 50em) {
+		h3 {
+			padding: 1.5rem 7.5rem;
+			font-size: var(--text-xl);
+			text-align: left;
+		}
+    
+    nav {
+			padding: 0 7.5rem;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+    
+	}
+</style>
