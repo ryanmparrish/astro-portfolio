@@ -27,8 +27,8 @@ const { title, description } = Astro.props;
 		</div>
 
 		<script>
-			// Add “loaded” class once the document has completely loaded.
-			addEventListener('load', () => document.documentElement.classList.add('loaded'));
+			// Add “loaded” class once the document has completely loaded
+			document.addEventListener('astro:page-load', () => document.documentElement.classList.add('loaded'));
 		</script>
 
 		<style>

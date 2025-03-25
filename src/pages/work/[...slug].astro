@@ -7,7 +7,9 @@ import ContactCTA from '../../components/ContactCTA.astro';
 import Hero from '../../components/Hero.astro';
 import Icon from '../../components/Icon.astro';
 import Pill from '../../components/Pill.astro';
+import WorkPostNavNextPrev from '../../components/WorkPostNavNextPrev.astro';
 import { render } from 'astro:content';
+
 
 interface Props {
 	entry: CollectionEntry<'work'>;
@@ -37,7 +39,7 @@ const { Content } = await render(entry);
 					<Hero title={entry.data.title} align="start">
 						<div class="details">
 							<div class="tags">
-								{entry.data.tags.map((t) => <Pill>{t}</Pill>)}
+								{entry.data.tags.map((t, index) => <Pill {index}>{t}</Pill>)}
 							</div>
 							<p class="description">{entry.data.description}</p>
 						</div>
@@ -52,7 +54,9 @@ const { Content } = await render(entry);
 					</div>
 				</div>
 			</main>
+			<WorkPostNavNextPrev />
 		</div>
+		
 		<ContactCTA />
 	</div>
 </BaseLayout>
@@ -78,8 +82,21 @@ const { Content } = await render(entry);
 
 	.tags {
 		display: flex;
+		padding: 0.5rem;
 		gap: 0.5rem;
+		color: var(--gray-0);
+		font-size: var(--text-md);
+		line-height: 1.35;
+		white-space: nowrap;
 	}
+
+	.tags.color-1 { background-color: var(--accent-red); }
+	.tags.color-2 { background-color: var(--accent-orange); }
+	.tags.color-3 { background-color: var(--accent-yellow); }
+	.tags.color-4 { background-color: var(--accent-green); }
+	.tags.color-5 { background-color: var(--accent-blue); }
+	.tags.color-6 { background-color: var(--accent-purple); }
+	.tags.color-7 { background-color: var(--accent-pink);}
 
 	.description {
 		font-size: var(--text-lg);

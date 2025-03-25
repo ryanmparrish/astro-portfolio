@@ -16,6 +16,16 @@
 	--gray-999_40: hsla(var(--gray-999-basis), 0.4);
 	--gray-999: #ffffff;
 
+
+	--accent-red: hsla(0, 90%, 67%, 0.5);
+	--accent-orange: hsla(30, 90%, 67%, 0.5);
+	--accent-yellow: hsla(50, 90%, 67%, 0.5);
+	--accent-green: hsla(120, 90%, 67%, 0.5);
+	--accent-blue: hsla(210, 90%, 67%, 0.5);
+	--accent-purple: hsla(270, 90%, 67%, 0.5);
+	--accent-pink: hsla(320, 90%, 67%, 0.5);
+
+
 	--accent-light: #c561f6;
 	--accent-regular: #7611a6;
 	--accent-dark: #1c0056;
@@ -31,7 +41,7 @@
 	--gradient-stop-3: var(--accent-dark);
 	--gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 150%);
 	--gradient-accent: linear-gradient(
-		150deg,
+		90deg,
 		var(--gradient-stop-1),
 		var(--gradient-stop-2),
 		var(--gradient-stop-3)

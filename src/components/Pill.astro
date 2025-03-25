@@ -1,16 +1,29 @@
-<div class="pill"><slot /></div>
+---
+
+const { index } = Astro.props;
+
+---
+
+<div class={`pill color-${index + 1}`}><slot /></div>
 
 <style>
 	.pill {
 		display: flex;
-		padding: 0.5rem 1rem;
+		padding: 0.5rem;
 		gap: 0.5rem;
-		color: var(--accent-text-over);
-		border: 1px solid var(--accent-regular);
-		background-color: var(--accent-regular);
-		border-radius: 999rem;
+		color: var(--gray-0);
+		background-color: var(--accent-subtle-overlay);
 		font-size: var(--text-md);
 		line-height: 1.35;
 		white-space: nowrap;
 	}
+
+	.pill.color-1 { background-color: var(--accent-red); }
+	.pill.color-2 { background-color: var(--accent-orange); }
+	.pill.color-3 { background-color: var(--accent-yellow); }
+	.pill.color-4 { background-color: var(--accent-green); }
+	.pill.color-5 { background-color: var(--accent-blue); }
+	.pill.color-6 { background-color: var(--accent-purple); }
+	.pill.color-7 { background-color: var(--accent-pink);; }
+
 </style>
