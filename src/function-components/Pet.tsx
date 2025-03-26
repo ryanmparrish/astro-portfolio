@@ -11,7 +11,7 @@ function Pet() {
   };
 
   const debug = false;
-  const randomPercent = Math.floor(Math.random() * (100 - 0 + 1)) + 1;
+  const randomPercent = 50;
   const defaultDirection = 'still'; // Default direction when none is available
   const defaultStillState = 'sleep1'; // Default still state before any clicks
   const elementRef = useRef<HTMLAnchorElement>(null);
@@ -64,6 +64,15 @@ function Pet() {
     
   };
 
+  const playSound = (sound: string) => {
+    if (sound === 'meow') {
+      const meows = ['meow-1', 'meow-2', 'meow-3', 'meow-4', 'meow-5', 'meow-6', 'meow-7'];
+      sound = meows[Math.floor(Math.random() * meows.length)];
+    }
+    const audio = new Audio(`/assets/pet/meow/sounds/${sound}.m4a`);
+    audio.play();
+  }
+
   // Attach mousemove event to the window
   useEffect(() => {
     window.addEventListener("mousemove", handleMouseMove);
@@ -79,10 +88,12 @@ function Pet() {
     if (clickCount === 0) {
       // First click: Start cycling through "still" states
       setIsCycling(true);
+      playSound('meow');
     } else if (clickCount === 1) {
       // Second click: Switch to "active" state
       setIsCycling(false);
       setCurrentPetState('active');
+      playSound('meow');
     } else if (clickCount > 1) {
       // Second click: Switch to "active" state
       setIsCycling(false);

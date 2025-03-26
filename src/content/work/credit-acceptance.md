@@ -30,4 +30,4 @@ Document authoring example - from docs to display. It's that easy
 
 ![image info](/public/assets/credit/ca-doc-authoring.png)
 
-See it live at <a href="https://www.creditacceptance.com/" target="_blank">creditacceptance.com</a>
+<!-- See it live at <a href="https://www.creditacceptance.com/" target="_blank">creditacceptance.com</a> -->

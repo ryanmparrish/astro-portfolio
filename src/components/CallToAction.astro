@@ -7,7 +7,8 @@ const { href } = Astro.props;
 ---
 
 <a href={href} target="_blank">
-  <span><slot /></span>
+  <div class="face"><slot/></div>
+  <div class="mask"><slot/></div>
 </a>
 
 <style>
@@ -28,8 +29,40 @@ const { href } = Astro.props;
 		white-space: nowrap;
 	}
 
+  .face {
+    position: relative;
+    z-index: 1;
+    transition: transform var(--theme-transition);
+  }
+
+  .mask {
+    position: absolute;
+    inset: 100% 0 0;
+    background: var(--gradient-accent-orange);
+    mix-blend-mode: overlay;
+    transition: background-color var(--theme-transition), top var(--theme-transition);
+    display: flex;
+    place-content: center;
+    text-align: center;
+    padding: 0.5em .75em;
+    gap: 0.8em;
+    line-height: 1.1;
+  }
+
 	a:hover {
-		/* transform: skewX(-15deg); */
+		.face {
+      transform: translateY(-150%);
+    }
+    .mask {
+      top: 0;
+    }
+	}
+
+	a:focus {
+    .mask {
+      mix-blend-mode: normal;
+      text-shadow: 0 0 0.5em var(--accent-text-shadow);
+    }
 	}
 
 	@media (min-width: 20em) {

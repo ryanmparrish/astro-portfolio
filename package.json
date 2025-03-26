@@ -18,5 +18,8 @@
     "react-dom": "^19.0.0",
     "swiper": "^11.1.15",
     "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "astro-relative-links": "^0.4.2"
   }
 }
