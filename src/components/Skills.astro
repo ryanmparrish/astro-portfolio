@@ -1,19 +1,20 @@
 ---
 import Icon from './Icon.astro';
+import { fade } from "astro:transitions";
 ---
 
 <section class="box skills">
-	<div class="stack gap-2 lg:gap-4">
+	<div class="stack gap-2 lg:gap-4"  transition:animate={fade({ duration: ".6s" })}>
 		<h2><Icon icon="terminal-window" color="var(--accent-regular)" size="2.2rem" gradient /> Full Stack</h2>
 		<p class="emphasis">Party in the Front,<br>Business in the Back!</p>
 		<p>As a full stack developer, I am adept at handling multiple aspects of a project, from UI/UX design to server-side scripting and database management. This significantly reduces the number of specialized roles that an organization needs to fill, making project management simpler and more streamlined.</p>
 	</div>
-	<div class="stack gap-2 lg:gap-4">
+	<div class="stack gap-2 lg:gap-4" transition:animate={fade({ duration: ".8s" })}>
 		<h2><Icon icon="feather" color="var(--accent-regular)" size="2.2rem" gradient /> Designer 1st</h2>
 		<p class="emphasis">"Ad Fontes" is Latin for “to the source”. <br>At the <Icon icon="heart" size="1rem" /> of what I do, starts at the source</p>
 		<p>I firmly believe any developer should first be a designer, and vise-versa, so that they know the foundation of aesthethics, design principles, and take this carnal knoledge first and formost into the lifecycle of a development project.</p>
 	</div>
-	<div class="stack gap-2 lg:gap-4">
+	<div class="stack gap-2 lg:gap-4" transition:animate={fade({ duration: "1s" })}>
 		<h2><Icon icon="strategy" color="var(--accent-regular)" size="2.2rem" gradient />Strategy-Minded</h2>
 		<p class="emphasis">I think outside the box, take risks, and make informed decisions about resource allocation</p>
 		<p>My vision will align with your goals. Thru the risks we take we will see great rewards. We are creative, we don't accept the status quo. Because I am a voracious learner and adaptable, I am ready for change. I step back from the details and look at the situation from a high-level to give the most adept considerations for success.</p>

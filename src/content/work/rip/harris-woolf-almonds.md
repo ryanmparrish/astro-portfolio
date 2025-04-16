@@ -1,6 +1,6 @@
 ---
 title: Harris Woolf Almonds
-publishDate: 2023-06-04 00:00:00
+publishDate: 2018-06-04 00:00:00
 img: /assets/rip/hwa-home.png
 img_alt: Almonds and more
 description: |

@@ -155,7 +155,7 @@ function Pet() {
           transform: "translateX(-50%)",
         }}
       >
-        <img src={`/assets/pet/meow/${currentAnimation}.gif`} />
+        <img className='cat-img' src={`/assets/pet/meow/${currentAnimation}.gif`} />
       </a>
     </div>
   );

@@ -25,6 +25,8 @@
 	--accent-purple: hsla(270, 90%, 67%, 0.5);
 	--accent-pink: hsla(320, 90%, 67%, 0.5);
 
+	--accent-sun: rgb(255, 255, 255);
+	--accent-moon: hsla(280, 89%, 67%, 0.33);
 
 	--accent-light: #c561f6;
 	--accent-regular: #7611a6;
@@ -105,6 +107,9 @@
 	--accent-overlay: hsla(280, 89%, 67%, 0.33);
 	--accent-subtle-overlay: hsla(281, 81%, 36%, 0.33);
 	--accent-text-over: var(--gray-0);
+
+  --accent-sun: hsla(280, 89%, 67%, 0.33);
+	--accent-moon: #1c0056;
 
 	--link-color: var(--accent-dark);
 

@@ -1,6 +1,6 @@
 ---
 title: Creative Energies Solar
-publishDate: 2023-06-04 00:00:00
+publishDate: 2019-06-04 00:00:00
 img: /assets/rip/cesolar.png
 img_alt: CE Solar screenshot
 description: |

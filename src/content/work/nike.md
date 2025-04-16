@@ -2,6 +2,7 @@
 title: Nike
 publishDate: 2020-12-13 00:00:00
 img: /assets/nike/nike-rio.png
+img_mask: /assets/nike/nike-rio-mask.png
 img_alt: A screenshot of zero.nike.com internal intranet for nike business
 description: |
   I paired w/ Nike to help build out their internal intranet to inform employees and athletes of the latest happening at Nike. Just do it!

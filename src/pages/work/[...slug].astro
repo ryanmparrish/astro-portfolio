@@ -9,7 +9,7 @@ import Icon from '../../components/Icon.astro';
 import Pill from '../../components/Pill.astro';
 import WorkPostNavNextPrev from '../../components/WorkPostNavNextPrev.astro';
 import { render } from 'astro:content';
-
+import { slide } from "astro:transitions";
 
 interface Props {
 	entry: CollectionEntry<'work'>;
@@ -48,8 +48,8 @@ const { Content } = await render(entry);
 			</header>
 			<main class="wrapper">
 				<div class="stack gap-10 content">
-					{entry.data.img && <img src={entry.data.img} alt={entry.data.img_alt || ''} />}
-					<div class="content">
+					{entry.data.img && <img src={entry.data.img} alt={entry.data.img_alt || ''} transition:animate={slide({ duration: ".2s" })} />}
+					<div class="content" transition:animate={slide({ duration: ".2s" })}>
 						<Content />
 					</div>
 				</div>

@@ -11,7 +11,12 @@ const { data, id } = Astro.props.project;
 <div class="card-container">
 	<a class="card" href={`/work/${id}`}>
 		<span class="title">{data.title}</span>
-		<img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />
+    <div class="shader">
+      <img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />
+      <div class="shader__layer specular">
+        <div class="shader__layer mask" style=`background-image: url(${data.img_mask});`></div>
+      </div>
+    </div>
 	</a>
 </div>
 
@@ -93,17 +98,52 @@ const { data, id } = Astro.props.project;
         /* transform: perspective(100px) translateZ(5px); */
 	}
 
-	.card:hover  .title {
-		color: var(--link-color);
-		box-shadow: var(--shadow-sm);
-	}
+	.card:hover  {
+    .title {
+      color: var(--link-color);
+      box-shadow: var(--shadow-sm);
+    }
+    .specular {
+      opacity: 1;
+    }
+  }
 
-	img {
+	.shader, 
+  .shader img {
 		grid-area: 1 / 1 / 3 / 3;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
+  
+  .shader {
+    position: relative;
+    overflow: hidden;
+    backface-visibility: hidden;
+  }
+
+  .shader__layer {
+    background: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+    background-position: center;
+  }
+
+  .specular {
+    background-attachment: fixed;
+    background-image: linear-gradient(180deg, black 20%, #3c5e6d 35%, #f4310e, #f58308 80%, black);
+    mix-blend-mode: color-dodge;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .mask {
+    mix-blend-mode: multiply;
+  }
+
 
 	@media (min-width: 50em) {
 		.card {

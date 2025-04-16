@@ -2,6 +2,7 @@
 title: Adobe.com
 publishDate: 2024-12-13 00:00:00
 img: /assets/adobe/adobeAi.webp
+img_mask: /assets/adobe/adobeAi-mask.png
 img_alt: Adobe consonant and milo development
 description: |
   Helping Adobe create the next suite of AEM tools

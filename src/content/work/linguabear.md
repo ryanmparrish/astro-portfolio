@@ -1,7 +1,8 @@
 ---
 title: LinguaBear
-publishDate: 2020-02-10 00:00:00
+publishDate: 2021-02-10 00:00:00
 img: /assets/linguabear/linguabear-home.png
+img_mask: /assets/linguabear/linguabear-mask.png
 img_alt: Alta radio logo
 description: |
   Inclusive Language Learning for Kids

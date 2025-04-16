@@ -1,6 +1,7 @@
 ---
 title: Backcountry.com
 publishDate: 2014-03-06 00:00:00
+featured: true
 img: /assets/rip/backcountry/bclogo.jpg
 img_alt: backcountry.com screenshot
 description: |
