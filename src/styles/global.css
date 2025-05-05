@@ -84,6 +84,8 @@
 
 	/* Transitions */
 	--theme-transition: 0.2s ease-in-out;
+
+	cursor: none;
 }
 
 :root.theme-dark {
@@ -268,4 +270,86 @@ h5 {
 	.lg\:gap-48 {
 		gap: 12rem;
 	}
+}
+
+/* Keep default pointer on interactive elements */
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  cursor: pointer;
+}
+
+.cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot--leading {
+  width: 8px;
+  height: 8px;
+  background-color: #ff7b00;
+  border-radius: 50%;
+  z-index: 10000;
+}
+
+.cursor-dot--trailing {
+  width: 40px;
+  height: 40px;
+  background: rgba(147, 51, 234, 0.2);
+  border-radius: 50%;
+  z-index: 9999;
+  animation: jellyPulse 2s ease-in-out infinite;
+  filter: invert(0);
+}
+
+.cursor-dot--trailing.hover {
+  width: 48px;
+  height: 48px;
+  background: rgba(147, 51, 234, 0.5);
+  animation: jellyPulseHover 1.5s ease-in-out infinite;
+  filter: hue-rotate(270deg);
+}
+
+@keyframes jellyPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes jellyPulseHover {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Add a subtle scale effect on hover for interactive elements */
+a:hover,
+button:hover,
+[role="button"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
 }

@@ -6,6 +6,7 @@
 import MainHead from '../components/MainHead.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CustomCursor from '../components/CustomCursor.jsx';
 
 interface Props {
 	title?: string | undefined;
@@ -37,8 +38,10 @@ const { title, description } = Astro.props;
 			<Footer />
 		</div>
 
+		<CustomCursor client:load />
+
 		<script>
-			// Add “loaded” class once the document has completely loaded
+			// Add "loaded" class once the document has completely loaded
 			document.addEventListener('astro:page-load', () => document.documentElement.classList.add('loaded'));
 		</script>
 

@@ -77,7 +77,7 @@ import Icon from './Icon.astro';
     pointer-events: none;
     position: absolute;
     top: 10px;
-    transform: translateX(80px);
+    transform: translateX(0px);
     transition: transform 800ms;
   }
 
@@ -105,7 +105,7 @@ import Icon from './Icon.astro';
     -webkit-tap-highlight-color: transparent;
     transition: color 800ms;
     &.moon {
-      color: var(--accent-moon);
+      /* color: var(--accent-moon); */
       &:hover {
         color: var(--accent-dark);
       }
@@ -148,35 +148,45 @@ import Icon from './Icon.astro';
 		constructor() {
 			super();
 
+			// Wait for the DOM to be fully loaded before initializing
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', () => this.initialize());
+			} else {
+				this.initialize();
+			}
+		}
+
+		initialize() {
 			const ball = this.querySelector('.ball')!;
 			const radios = this.querySelectorAll('.radio')!;
 			const labelDiv = this.querySelector('.labels')!;
-      let labels = this.querySelectorAll('.label');
-      let prevRadio: HTMLElement | null = null, prevLabel: HTMLElement | null = null;
+			let labels = this.querySelectorAll('.label');
+			let prevRadio: HTMLElement | null = null, prevLabel: HTMLElement | null = null;
 
 			/** Set the theme to dark/light mode. */
 			const setTheme = (dark: boolean) => {
 				document.documentElement.classList[dark ? 'add' : 'remove']('theme-dark');
-        labelDiv.setAttribute('aria-checked', String(dark));
-        ball.className = `ball pos${dark ? 1 : 0}`;
-
+				labelDiv.setAttribute('aria-checked', String(dark));
+				ball.className = `ball pos${dark ? 1 : 0}`;
 			};
-      
-      // radio buttons
-      radios.forEach((radio, index) => {
-        radio.addEventListener('click', function(e) {
-          if (prevRadio) prevRadio.classList.toggle('active');
-          if (prevLabel) prevLabel.classList.toggle('active');
-          radio.classList.toggle('active');
-          prevRadio = radio as HTMLElement;
-          labels[index].classList.toggle('active');
-          prevLabel = labels[index] as HTMLElement;;
-          setTheme(index === 1);
-        });
-      });
+			
+			// radio buttons
+			radios.forEach((radio, index) => {
+				radio.addEventListener('click', function(e) {
+					if (prevRadio) prevRadio.classList.toggle('active');
+					if (prevLabel) prevLabel.classList.toggle('active');
+					radio.classList.toggle('active');
+					prevRadio = radio as HTMLElement;
+					labels[index].classList.toggle('active');
+					prevLabel = labels[index] as HTMLElement;
+					setTheme(index === 1);
+				});
+			});
 
-			// Initialize button state to reflect current theme.
-			setTheme(this.isDark());
+			setTimeout(() => {
+				const isDarkMode = this.isDark();
+				setTheme(isDarkMode);
+			}, 0);
 		}
 
 		isDark() {

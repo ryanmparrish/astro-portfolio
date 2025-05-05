@@ -1,123 +1,138 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-
+import IntroSlider from '../components/IntroSlider.astro';
+import InstagramScroller from '../components/InstagramScroller.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
+
+const introSlides = {
+	slide_list: [
+		{
+			src: '/assets/carousel/at-work.jpg',
+		},
+		{
+			src: '/assets/carousel/portrait.jpg',
+		},
+		{
+			src: '/assets/carousel/portrait-bw.jpg',
+		},
+	],
+};
+
 ---
 
 <BaseLayout title="About | Ryan Parrish" description="About Ryan Parrish">
 	<div class="stack gap-20">
 		<main class="wrapper about">
 			<Hero
-				title="About RMP"
-				tagline="Thanks for stopping by. Read below to learn more about myself and my background."
+				title="Ryan Parrish"
+				tagline="DIGITAL IMAGINEER"
 			>
-				<img
-					width="1553"
-					height="873"
-					src="/assets/at-work.jpg"
-					alt="Ryan Parrish at Cardiff Pass"
-				/>
+        <IntroSlider introSlides={introSlides} />
 			</Hero>
+
 
 			<section>
 				<h2 class="section-title">Background</h2>
 				<div class="content">
-					<p>
+          <p><strong>20+</strong> years strong building dynamic and high-performance web experiences that connect with users</p>
+            <br>I've had the thrill of crafting intuitive and engaging interfaces for leading brands like Adobe, Nike, and Backcountry. 
+            My expertise includes developing seamless web user interfaces and scalable applications. 
+            I am a leader who is driven by the passion for creating impactful digital solutions and I'm ready to bring an energetic and creative approach to your next challenge. 👍
+          </p><br>
+					<!-- <p>
 						I am a senior developer at <a href="https://thinkingbox.com/">Thinking Box</a> 
 						— A brand experience agency shaping the future through craft and curiosity.
-						We are thinkers, doers — and above all — makers. Creating innovative, exceptional experiences that solve complex challenges for the world’s biggest brands.
+						We are thinkers, doers — and above all — makers. Creating innovative, exceptional experiences that solve complex challenges for the world's biggest brands.
 					</p>
 					<br>
 					<p>
 						I am a full-stack web developer with over a decade of experience. I'm
 						passionate about solving complex problems thru coding, design, art, user interaction, and
-						innovation. My focus is to turn my client’s goals into achievements and strengthen their purpose.
+						innovation. My focus is to turn my client's goals into achievements and strengthen their purpose.
 						Part of why I love development is the constant evolution of programing languages and the
 						opportunity to always be learning new approaches, of refining old ones. I feel that my knowledge
-						of this ecosystem and keeping adept in it’s changing atmosphere is what give me the advantage
+						of this ecosystem and keeping adept in it's changing atmosphere is what give me the advantage
 						when consulting w/ my clients on the lifecycle of development project. I have a broad range of
 						utility and library experience that helps me be a more efficient developer and saves my clients in
 						the end by hitting the ground running. Some of my tools use regularly are Node.js, Apache,
 						React, Vue.js, Angular.js, Express, Mongo, Git, CLI, PHP, MySQL, Rest
 						API's, Wordpress (theme and plugins)... and many custom libraries, packages and API
 						endpoint integrations.
-					</p>
-					<blockquote>
-						When I’m not jamming code, I like to spend my time snowboarding, mountain biking, whitewater rafting and exploring the world with my family.
-					</blockquote>
-					<p>
-						I am super self-driven with experience working remote and in office. By staying available and transparent w/ tools like Slack,
-						Trello, Teams/Hangouts I am always there ready to tackle any problem or collaborate w/ all.
-						I am very familiar w/ GitHub pull request reviews, branching, merging and setting up various
-						development builds and deployments.
-						I'm excited to use component based development w/ fast modern approaches utilizing sass or stylus,
-						web components, redux/flux, graphQL and know my way around most `.js` packages like React, Angular and Vue.
-					</p>
-					<p>FYI: This site is written in <a href="https://astro.build/" target="_blank">Astro.js</a> - I have loved the framework agnostic features and built-in features like View Transitions, Middleware, Actions, Environment Variables, and Deployment Adapters</p>
+					</p> -->
 				</div>
 			</section>
-			<section>
-				<h2 class="section-title">Education</h2>
-				<div class="content">
-					<p>Bachelors of Fine Art with a double major in Fine Art & Multimedia @ <a href="https://ncad.edu/" target="_blank">Northwest College of Art & Design</a></p>
-          <p>Studied traditional painting, graphic design, animation, photography, video production, anthropology and business communications.</p>
-				</div>
-			</section>
-			<!-- <section>
-				<h2 class="section-title">Design</h2>
-				<div class="content">
-					<p>Visual communication is key to portraying an idea. Ad fontes is a Latin expression which means "[back] to the sources". The idea that sound knowledge depends on the earliest and most fundamental sources. This principle is applied to my design with the foundational array of design, aesthetic, fine art, color theory, UI & UX</p>
-				</div>
-			</section>
-			<section>
-				<h2 class="section-title">Development</h2>
-				<div class="content">
-					<p>My focus is primarily interactive front-end development, specializing in JavaScript, SCSS and semantic HTML. I'm passionate about solving complex problems through coding, design, art, user interaction, and innovation. Some of my tools are Node.js, Apache, React, Vue.js, Angular.js, Express, Mongo, Git, GitHub/Bitbucket, PHP, MySQL, Rest API's, Wordpress (theme and plugins), jQuery and many custom library, package and API endpoint integrations.</p>
-				</div>
-			</section>
-			<section>
-				<h2 class="section-title">Consultation</h2>
-				<div class="content">
-					<p>I feel that my knowledge of this ecosystem and keeping adept in it’s changing atmosphere is what give me the advantage when consulting w/ my clients on the lifecycle of development project. I have a broad range of utility and library experience that helps me be a more efficient developer that saves cost and effort on both me and my clients.</p>
-				</div>
-			</section> -->
 			<section>
 				<h2 class="section-title">Professional Experience</h2>
 				<div class="content">
-					<p><a href="https://thinkingbox.com/" target="_blank">ThinkingBox</a> — Senior Developer</p>
+					<p class="title"><a href="https://thinkingbox.com/" target="_blank">ThinkingBox</a> — Senior Developer</p>
           <em>Feb 2021 - PRESENT</em>
-          <p>Working with Adobe to build the next suite of AEM tools. Building beautiful
-            client sites and business tools.</p>
+          <ul>
+            <li>Led a development team at Adobe using Edge Delivery Service for adobe.com and subsidiary sites.</li>
+            <li>Contributed to the ‘Dexter’ codebase, (Adobe’s internal instance of A.E.M), to expand component functionality.</li>
+            <li>Liaison between development, design & lead stakeholders to establish a unified design system, setting standards for development practice and cross team processes.</li>
+            <li>Delivered custom solutions for clients’ business needs, data analytics and CMS integrations.</li>
+          </ul>
         </div>
 				<div class="content">
-          <p><a href="https://www.lifevantage.com/" target="_blank">LifeVantage</a> — Web Developer</p>
+          <p class="title"><a href="https://www.lifevantage.com/" target="_blank">LifeVantage</a> — Web Developer</p>
           <em>Mar 2020 - Feb 2021</em>
-          <p>Lead developer in building and maintaining the ecommerce web presence for
-            LifeVantage.com. Project lead for the very successful LifeVantage customer
-            referral program.</p>
+          <ul>
+            <li>Lead developer on a high-traffic M.L.M. ecommerce platform with custom CMS and localization support. 🛠</li>
+            <li>Strategized and implemented an interface for a customer referral program which increased distributors. 📈</li>
+          </ul>
         </div>
 				<div class="content">
-          <p><a href="https://wearetopsecret.com/" target="_blank">Super Top Secret</a> — Interactive Developer</p>
+          <p class="title"><a href="https://wearetopsecret.com/" target="_blank">Super Top Secret</a> — Interactive Developer</p>
           <em>April 2016 - Mar 2020</em>
-          <p>Building client sites and web portals. Clients: Nike, Riot games, Clearlink,
-            Arkade belts, Ski Utah, STS site, Harris Woolf Almonds, CE Solar, Black Oak
-            Capital</p>
+          <ul>
+            <li>Created C.M.S. solutions in Python/Wagtail/React for numerous top clients. 💰</li>
+            <li>Maintained Nike’s zero.nike.com internal ‘intranet’ - A headless wordpress/angular site with localization.</li>
+            <li>Built angular components & services, wordpress plugins, and custom API integrations.</li>
+            <li>Interactive development using G.S.A.P., webGL, lottie 🎉</li>
+            <li>Clients: Nike, Riot games, Clearlink, Arkade belts, Ski Utah, STS site, Harris Woolf Almonds, CE Solar, Black Oak Capital</li>
+          </ul>
+          
         </div>
         <div class="content">
-          <p><a href="https://stgconsulting.com/" target="_blank">Software Technology Group</a> — Front End Developer</p>
+          <p class="title"><a href="https://stgconsulting.com/" target="_blank">Software Technology Group</a> — Front End Developer</p>
           <em>Sept. 2013 - Sept 2016</em>
-          <p>Front end developer for a handful of client sites. Clients: RMI (Resource
-            Management), Courtview Justice Solutions, Backcountry.com, STG site.</p>
+          <ul>
+            <li>Created a unique medical interface using near-field-communication (NVC) for medical patient data.</li>
+            <li>Designed a relational database schema for a ski rental service, automating and streamlining business needs.</li>
+            <li>Developed a product collection automation system and built A-level landing pages at Backcountry.com.</li>
+            <li>Lead UI and Front-end developer on a proprietary HR software at Resource Management Inc.</li>
+            <li>Front-end developer and database engineer for Court View, a highly complex justice management system.</li>
+          </ul>
 				</div>
         <div class="content">
-          <p>You want more? <a href="../../public/assets/ryanparrishresume2025.pdf" download>Download my resume</a></p>
-          <p>Rest assured, I've worked with a lot of great companies. Here are a few more that I have had the pleasure to work with.</p>
-          <p><a href="https://onlineimage.com/" target="_blank">Online Image</a>, <a href="https://lts.com/" target="_blank">LongView Tech solutions</a>, <a href="https://www.mrm.com/en/" target="_blank">MRM/MCCann SLC</a>, <a href="https://www.hotwaxsystems.com/" target="_blank">HotWax Media</a>, <a href="https://www.overstock.com/" target="_blank">Overstock</a>, <a href="https://www.biggerfasterstronger.com/" target="_blank">Bigger Faster Stronger</a></p>
+          <p class="title"><a href="https://stgconsulting.com/" target="_blank">Additional Experience</a> — Full-Time & Freelance Roles</p>
+          <em>2004 - 2013</em>
+          <ul>
+            <li><a href="https://www.mrm.com/en/" target="_blank">MRM/MCCann SLC</a>: Worked on highly interactive UI for clients like AOL, Verizon, & Verisign.</li>
+            <li><a href="https://lts.com/" target="_blank">LongView Tech solutions</a>: Contributed to the VA hospital Health Management Platform.</li>
+            <li><a href="https://onlineimage.com/" target="_blank">Online Image</a>: SEO optimization and site improvements.</li>
+            <li><a href="https://www.hotwaxsystems.com/" target="_blank">HotWax Media</a>: Developed OFBiz-based solutions for many clients, including Scarpa, TWP Mesh & Marco pinball. Built 3point5/Expertvoice brand awareness Edu-games… in flash (rip) 😱</li>
+            <li><a href="https://www.overstock.com/" target="_blank">Overstock</a>: Web development and UX design.</li>
+            <li><a href="https://www.biggerfasterstronger.com/" target="_blank">Bigger Faster Stronger</a>: Art Director for web, print, 3D, and video production.</li>
+          </ul>
+          <br>
+          <p>You want more? <a href="../../public/assets/ryan-parrish-resume-2025-ast.pdf" download>Download</a> / 
+            <a href="https://docs.google.com/document/d/e/2PACX-1vSoX882UrDnZDIJUQDlXCOgVjRYrz85Ipg5luFihhtuhGdg5uh3b3aDhYtPFFXA-viP74ir1Q8YaA3I/pub">view</a> my resume 📜</a>
+          </p>
 				</div>
 			</section>
-      <section>
+
+			<section>
+				<h2 class="section-title">Education</h2>
+				<div class="content">
+					<strong>Bachelor of Fine Arts (BFA) [2x major in Fine Art & Multimedia] @<a href="https://ncad.edu/" target="_blank">Northwest College of Art & Design</a></strong>
+          <p>Studied: painting, drawing, design, visual communication, branding, business strategy, animation, video production, web development, 3D modeling & animation, philosophy, semiotics, anthropology, history & math.</p>
+				</div>
+			</section>
+
+      <!-- <section>
 				<h2 class="section-title">Skills</h2>
 				<div class="content skills">
           <strong><Icon icon="terminal-window" color="var(--accent-regular)" size="2.2rem" gradient /> Full Stack</strong>
@@ -147,43 +162,73 @@ import Hero from '../components/Hero.astro';
             from a high-level to give the most
             adept considerations for success.</p>
 				</div>
-			</section>
+			</section> -->
       <section>
-        <h2 class="section-title">LANGUAGES</h2>
+        <h2 class="section-title">Skills</h2>
         <div class="content">
-          <p>Javascript, HTML, CSS, PHP, MySql, Python, Django, .git, CLI, *.js Frameworks (React, Vue, Angular)</p>
-          <p>Wordpress, Wagtail, AEM (adobe experience manager), EDS (edge delivery service)</p>
+          <label for="technical-skills">Technical</label>
+          <ul id="technical-skills">
+            <li>JavaScript (ES6+): Async/await, destructuring, modular architecture.</li>
+            <li>*.js libraries: React, Vue, Angular</li>
+            <li>Native Web Components: Custom Elements, Shadow DOM, HTMLTemplates</li>
+            <li>CSS: Flexbox, Grid, SCSS, Tailwind, animations</li>
+            <li>TypeScript: Static typing for scalable apps</li>
+            <li>Git: Branching, merging, collaboration</li>
+            <li>APIs: REST, GraphQL, Axios, Apollo</li>
+            <li>Testing: Jest, Puppeteer, Selenium</li>
+            <li>Performance: Caching, CDN, image compression, Webpack, Vite</li>
+            <li>CI/CD: GitHub Actions, Jenkins, GitLab CI</li>
+            <li>Real-Time: WebSockets, Socket.io</li>
+            <li>Security: XSS/CSRF protection, CORS, headers</li>
+          </ul>
+          <label for="systems-skills">Systems Go!</label>
+          <ul id="systems-skills">
+            <li>UX/UI & Accessibility: WCAG, brand-aligned design systems</li>
+            <li>SEO & Performance: SEO strategies, Core Web Vitals optimization</li>
+            <li>Team Collaboration: Agile workflows, mentoring, code reviews</li>
+            <li>Problem Solving: Cross-stack flexibility and creative technical solutions</li>
+          </ul>
         </div>
-
-        <h2 class="section-title">TOOLS</h2>
+      </section>
+      <section>
+        <h2 class="section-title">Howdy partner!</h2>
         <div class="content">
-          <p>Adobe Creative Suite, Sketch, Figma, Rive, Lottie, VSCode</p>
+
+          <blockquote>
+            Alright, listen up! When I ain't busy tappin' away at that there keyboard, you'll find me up in them hills, paying respects to the powder day saints. Or come the hotter days, I'll be thirstin' for a lil' river in ya liver.
+          </blockquote>
+          <p>Follow me on <a href="https://www.instagram.com/ryanparrish/" target="_blank"><Icon icon="instagram-logo" /> Instagram</a> for more of my adventures!</p>
+          <br>
+          <InstagramScroller />
+          <br>
+          <p>This website? Whipped up with <a href="https://astro.build/" target="_blank">Astro.js</a>. Bonus feature: 1 feral <a href="#meow-cat" id="meow-cat-link">cat</a> adopted. No idea why. 🧶</p>
         </div>
-        
-        <h2 class="section-title">DEPLOYMENT</h2>
-        <p>AWS, Heroku, Netlify, Vercel, Cloudflare</p>
-
-        <h2 class="section-title">WORKFLOW</h2>
-        <p>Agile, Scrum, Waterfall</p>
-
-        <h2 class="section-title">DESIGN</h2>
-        <p>UI/UX, Wireframing, Prototyping, Branding</p>
-
-        <h2 class="section-title">SEO, ANALYTICS & PERFORMANCE</h2>
-        <p>Google Analytics, Google Search Console, Lighthouse, Web Vitals</p>
-
-        <h2 class="section-title">MARKETING</h2>
-        <p>Email Marketing, Social Media Marketing, Content Marketing</p>
-        
-        <h2 class="section-title">ECOMMERCE</h2>
-        <p>Shopify, WooCommerce, Magento</p>
-
       </section>
 		</main>
 
 		<ContactCTA />
 	</div>
 </BaseLayout>
+
+<style>
+  :root {
+    --bg-image-main: url('/assets/about/bg-main-light-800w.jpg');
+  }
+
+  :root.theme-dark {
+    --bg-image-main: url('/assets/about/bg-main-dark-800w.jpg');
+  }
+
+
+  @media (min-width: 50em) {
+    :root {
+      --bg-image-main: url('/assets/about/bg-main-light-1440w.jpg');
+    }
+    :root.theme-dark {
+      --bg-image-main: url('/assets/about/bg-main-dark-1440w.jpg');
+    }
+  }
+</style>
 
 <style>
 	.about {
@@ -243,6 +288,14 @@ import Hero from '../components/Hero.astro';
 	.content :global(a:focus) {
 		text-decoration-color: currentColor;
 	}
+  
+  .content label,
+  .content .title {
+    font-size: var(--text-md);
+    color: var(--gray-0);
+    font-weight: 600;
+
+  }
 
 	@media (min-width: 50em) {
 		.about {

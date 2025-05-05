@@ -60,7 +60,25 @@ const { Content } = await render(entry);
 		<ContactCTA />
 	</div>
 </BaseLayout>
+<style>
+  :root {
+    --bg-image-main: url('/assets/work/bg-main-light-800w.jpg');
+  }
 
+  :root.theme-dark {
+    --bg-image-main: url('/assets/work/bg-main-dark-800w.jpg');
+  }
+
+
+  @media (min-width: 50em) {
+    :root {
+      --bg-image-main: url('/assets/work/bg-main-light-1440w.jpg');
+    }
+    :root.theme-dark {
+      --bg-image-main: url('/assets/work/bg-main-dark-1440w.jpg');
+    }
+  }
+</style>
 <style>
 	header {
 		padding-bottom: 2.5rem;

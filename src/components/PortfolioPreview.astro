@@ -10,64 +10,126 @@ const { data, id } = Astro.props.project;
 ---
 <div class="card-container">
 	<a class="card" href={`/work/${id}`}>
-		<span class="title">{data.title}</span>
-    <div class="shader">
+    <div class="card-front">
+      <span class="title">{data.title}</span>
       <img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />
-      <div class="shader__layer specular">
-        <div class="shader__layer mask" style=`background-image: url(${data.img_mask});`></div>
-      </div>
+      <div class="card-shine"></div>
+      <div class="card-glare"></div>
     </div>
 	</a>
 </div>
 
-
 <script>
 	document.addEventListener("astro:page-load", () => {
-		// Select the card element
 		const cards = document.querySelectorAll('.card');
 		cards.forEach(card => {
-			// Add an event listener for when the mouse moves over the card
-			card.addEventListener('mousemove', (e) => {
-				const mouseEvent = e as MouseEvent;
-				// Get the card's size and position relative to the viewport
-				const cardRect = card.getBoundingClientRect();
-
-				const x = mouseEvent.clientX - cardRect.left; // X coordinate within the card
-				const y = mouseEvent.clientY - cardRect.top;  // Y coordinate within the card
-
-				// Find the center of the card
-				const centerX = cardRect.width / 2;
-				const centerY = cardRect.height / 2;
-
-				// Calculate the rotation angles based on mouse position
-				// Multiply by 15 for a stronger tilt effect
-				const rotateX = ((y - centerY) / centerY) * 15; // Tilt on the X-axis (up and down)
-				const rotateY = ((centerX - x) / centerX) * 15; // Tilt on the Y-axis (left and right)
-
-				// Apply the calculated rotation to the card
-				(card as HTMLElement).style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-			});
-
-			// Add an event listener for when the mouse leaves the card area
+			const cardShine = card.querySelector('.card-shine') as HTMLElement;
+			const cardGlare = card.querySelector('.card-glare') as HTMLElement;
+			const cardElement = card as HTMLElement;
+			
+			if (!cardShine || !cardGlare) return;
+			
+			card.addEventListener('mousemove', ((e: MouseEvent) => {
+				const rect = cardElement.getBoundingClientRect();
+				const x = e.clientX - rect.left;
+				const y = e.clientY - rect.top;
+				
+				// Calculate center-relative coordinates (0 to 1)
+				const centerX = x / rect.width;
+				const centerY = y / rect.height;
+				
+				// Calculate pointer position from center
+				const pointerFromCenter = Math.sqrt(
+					Math.pow(centerX - 0.5, 2) + 
+					Math.pow(centerY - 0.5, 2)
+				);
+				
+				// Calculate rotation angles
+				const rotateX = (centerY - 0.5) * 15;
+				const rotateY = (0.5 - centerX) * 15;
+				
+				// Apply rotation to the card
+				cardElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+				
+				// Update CSS variables for effects
+				cardElement.style.setProperty('--pointer-x', `${centerX * 100}%`);
+				cardElement.style.setProperty('--pointer-y', `${centerY * 100}%`);
+				cardElement.style.setProperty('--pointer-from-center', `${pointerFromCenter}`);
+				cardElement.style.setProperty('--pointer-from-top', `${centerY}`);
+				cardElement.style.setProperty('--pointer-from-left', `${centerX}`);
+				
+				// Update shine and glare positions
+				cardShine.style.setProperty('--posx', `${centerX * 100}%`);
+				cardShine.style.setProperty('--posy', `${centerY * 100}%`);
+				cardGlare.style.setProperty('--mx', `${centerX * 100}%`);
+				cardGlare.style.setProperty('--my', `${centerY * 100}%`);
+			}) as EventListener);
+			
 			card.addEventListener('mouseleave', () => {
-				// Reset the card's rotation when the mouse leaves
-				(card as HTMLElement).style.transform = 'rotateX(0) rotateY(0)';
+				// Reset card rotation
+				cardElement.style.transform = 'rotateX(0) rotateY(0)';
+				
+				// Reset CSS variables
+				cardElement.style.setProperty('--pointer-x', '50%');
+				cardElement.style.setProperty('--pointer-y', '50%');
+				cardElement.style.setProperty('--pointer-from-center', '0');
+				cardElement.style.setProperty('--pointer-from-top', '0.5');
+				cardElement.style.setProperty('--pointer-from-left', '0.5');
+				cardShine.style.setProperty('--posx', '50%');
+				cardShine.style.setProperty('--posy', '50%');
+				cardGlare.style.setProperty('--mx', '50%');
+				cardGlare.style.setProperty('--my', '50%');
 			});
 		});
 	});
 </script>
 
 <style>
+	:root {
+		--pointer-x: 50%;
+		--pointer-y: 50%;
+		--pointer-from-center: 0;
+		--pointer-from-top: 0.5;
+		--pointer-from-left: 0.5;
+	}
 
 	.card-container {
 		perspective: 1000px;
 	}
 	
 	.card {
+		--glow: #69d1e9;
+		--radius: 4.55% / 3.5%;
+		--space: 2px;
+		--h: 21;
+		--s: 70%;
+		--l: 50%;
+		--angle: 133deg;
+		--imgsize: 600px;
+		--red: #f80e7b;
+		--yel: #eedf10;
+		--gre: #21e985;
+		--blu: #0dbde9;
+		--vio: #c929f1;
+		--mx: 50%;
+		--my: 50%;
+		--tx: 0px;
+		--ty: 0px;
+		--s: 1;
+		--o: 1;
+		--rx: 0deg;
+		--ry: 0deg;
+		--pos: 50% 50%;
+		--posx: 50%;
+		--posy: 50%;
+		--hyp: 0;
+		--bars: 24px;
+		--bar-color: rgba(255, 255, 255, 0.6);
+		--bar-bg: rgb(10, 10, 10);
+		--radius: 4.55% / 3.5%;
 		position: relative;
 		display: grid;
 		grid-template: auto 1fr / auto 1fr;
-		height: 11rem;
 		background: var(--gradient-subtle);
 		border: 1px solid var(--gray-800);
 		border-radius: 0.75rem;
@@ -77,8 +139,12 @@ const { data, id } = Astro.props.project;
 		font-family: var(--font-brand);
 		font-size: var(--text-lg);
 		font-weight: 500;
+		transform: translateZ(0.1px);
 		transition: box-shadow var(--theme-transition), transform .2s ease;
+		will-change: transform, visibility;
 		transform-style: preserve-3d;
+		width: 100%;
+    height: 320px;
 		perspective: 1000px;
 	}
 
@@ -86,73 +152,113 @@ const { data, id } = Astro.props.project;
 		box-shadow: var(--shadow-md);
 	}
 
+	.card-front {
+		display: grid;
+		grid-area: 1 / 1;
+		width: auto;
+    height: 320px;
+		object-fit: cover;
+		object-position: bottom center;
+	}
+
+	.card img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: grid;
+		grid-area: 1 / 1;
+	}
+
 	.title {
-		grid-area: 1 / 1 / 2 / 2;
+		position: absolute;
+    top: -1px;
 		z-index: 1;
 		margin: 0.5rem 0.4rem;
 		padding: 0.5rem 1rem;
 		background: var(--gray-999);
 		border: 1px solid var(--gray-800);
 		color: var(--gray-200);
-		border-radius: 0.55rem;
-        /* transform: perspective(100px) translateZ(5px); */
-	}
-
-	.card:hover  {
-    .title {
-      color: var(--link-color);
-      box-shadow: var(--shadow-sm);
-    }
-    .specular {
-      opacity: 1;
-    }
-  }
-
-	.shader, 
-  .shader img {
-		grid-area: 1 / 1 / 3 / 3;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		border-radius: .5rem;
 	}
   
-  .shader {
-    position: relative;
-    overflow: hidden;
-    backface-visibility: hidden;
-  }
+	.card:hover .title {
+		color: var(--link-color);
+		box-shadow: var(--shadow-sm);
+	}
 
-  .shader__layer {
-    background: black;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-size: 100%;
-    background-position: center;
-  }
+	.card-shine,
+	.card-shine::after {
+		width: 100%;
+		border-radius: var(--radius);
+		mix-blend-mode: color-dodge;
+		background-image: url(/assets/backgrounds/illusion.webp), 
+			repeating-linear-gradient(0deg, 
+				rgb(255, 119, 115) calc(var(--space) * 1),
+				rgba(255, 237, 95, 1) calc(var(--space) * 2),
+				rgba(168, 255, 95, 1) calc(var(--space) * 3),
+				rgba(131, 255, 247, 1) calc(var(--space) * 4),
+				rgba(120, 148, 255, 1) calc(var(--space) * 5),
+				rgb(216, 117, 255) calc(var(--space) * 6),
+				rgb(255, 119, 115) calc(var(--space) * 7)
+			),
+			repeating-linear-gradient(var(--angle), 
+				#0e152e 0%,
+				hsl(180, 10%, 60%) 3.8%,
+				hsl(180, 29%, 66%) 4.5%,
+				hsl(180, 10%, 60%) 5.2%,
+				#0e152e 10%,
+				#0e152e 12%
+			),
+			radial-gradient(farthest-corner circle at var(--mx) var(--my),
+				rgba(0, 0, 0, .1) 12%,
+				rgba(0, 0, 0, .15) 20%,
+				rgba(0, 0, 0, .25) 120%
+			);
+		background-blend-mode: exclusion, hue, hard-light, exclusion;
+		background-size: var(--imgsize), 200% 700%, 300%, 200%;
+		background-position: center, 0% var(--posy), var(--posx) var(--posy), var(--posx) var(--posy);
+		filter: brightness(calc((var(--hyp) * 0.3) + 0.5)) contrast(2) saturate(1.5);
+		-webkit-filter: brightness(calc((var(--hyp) * 0.3) + 0.5)) contrast(2) saturate(1.5);
+		display: grid;
+		grid-area: 1 / 1;
+	}
 
-  .specular {
-    background-attachment: fixed;
-    background-image: linear-gradient(180deg, black 20%, #3c5e6d 35%, #f4310e, #f58308 80%, black);
-    mix-blend-mode: color-dodge;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .mask {
-    mix-blend-mode: multiply;
-  }
+	.card-shine::after {
+		content: " ";
+		visibility: visible;
+		mix-blend-mode: exclusion;
+		background-size: var(--imgsize), 200% 400%, 195%, 200%;
+		background-position: center, 0% var(--posy), calc(var(--posx) * -1) calc(var(--posy) * -1), var(--posx) var(--posy);
+		filter: brightness(calc((var(--hyp) * 0.5) + .8)) contrast(1.6) saturate(1.4);
+		-webkit-filter: brightness(calc((var(--hyp) * 0.5) + .8)) contrast(1.6) saturate(1.4);
+	}
 
+	.card-glare {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(
+			circle at var(--mx) var(--my),
+			rgba(255, 255, 255, 0.8) 0%,
+			rgba(255, 255, 255, 0.4) 30%,
+			rgba(255, 255, 255, 0) 60%
+		);
+		mix-blend-mode: overlay;
+		opacity: 0.5;
+		pointer-events: none;
+		z-index: 2;
+		transition: opacity 0.3s ease;
+	}
+
+	.card:hover .card-glare {
+		opacity: 0.8;
+	}
 
 	@media (min-width: 50em) {
-		.card {
-			height: 22rem;
-			border-radius: 1.5rem;
-		}
-
-		.title {
-			border-radius: 0.9375rem;
-		}
+		/* .card {
+			 height: 500px;
+		} */
 	}
 </style>

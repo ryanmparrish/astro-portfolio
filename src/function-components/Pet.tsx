@@ -17,11 +17,30 @@ function Pet() {
   const elementRef = useRef<HTMLAnchorElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0, direction: '' });
   const [petPosition, setPetPosition] = useState({ left: `${randomPercent}%` });
+// Initialize clickCount from localStorage or default to 0
   const [clickCount, setClickCount] = useState(0);
+  const [crazyCount, setCrazyCount] = useState(0);
+  const [isCrazy, setIsCrazy] = useState(false);
+
+  const [totalClicksCount, setTotalClicksCount] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const clicksCount = localStorage.getItem('petTotalClicksCount');
+      return clicksCount ? parseInt(clicksCount, 10) : 0;
+    }
+    return 0;
+  });
+  
   const [currentPetState, setCurrentPetState] = useState('still'); // 'still' or 'active'
   const [currentAnimation, setCurrentAnimation] = useState(defaultStillState); // Default to 'sleep1'
   const [stillIndex, setStillIndex] = useState(0); // Index for cycling through "still" states
   const [isCycling, setIsCycling] = useState(false); // Control animation cycling
+  
+  // Save totalClicksCount to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('petTotalClicksCount', totalClicksCount.toString());
+    }
+  }, [totalClicksCount]);
   
   // Handle mouse movement (for "active" state)
   const handleMouseMove = (event: MouseEvent): void => {
@@ -84,6 +103,7 @@ function Pet() {
   // Handle click events
   const handleClick = () => {
     setClickCount((prev) => prev + 1);
+    setTotalClicksCount((prev) => prev + 1);
 
     if (clickCount === 0) {
       // First click: Start cycling through "still" states
@@ -94,11 +114,14 @@ function Pet() {
       setIsCycling(false);
       setCurrentPetState('active');
       playSound('meow');
+      setCrazyCount((prev) => prev + 1);
+      setIsCrazy(true);
     } else if (clickCount > 1) {
       // Second click: Switch to "active" state
       setIsCycling(false);
       setCurrentPetState('still');
       setClickCount(0)
+      setIsCrazy(false);
     }
   };
 
@@ -138,6 +161,7 @@ function Pet() {
       <style>{`a.cat:hover { cursor: pointer; }`}</style>
       <span style={{display: debug ? 'block': 'none'}}>
         <p>You clicked {clickCount} times</p>
+        <p>total clicks {totalClicksCount} times</p>
         <p>Mouse Position: ({position.x}, {position.y})</p>
         <p>Pet Position: {petPosition.left}</p>
         <p>Direction: {position.direction || defaultDirection}</p>
@@ -154,8 +178,11 @@ function Pet() {
           top: '-28px',
           transform: "translateX(-50%)",
         }}
+        id='meow-cat'
       >
         <img className='cat-img' src={`/assets/pet/meow/${currentAnimation}.gif`} />
+        <span className='count' style={{position: 'absolute', top: '38px', fontSize: '8px', fontFamily: 'monospace', left: '50%', transform: 'translateX(-50%)', display: totalClicksCount === 0 ? 'none' : 'block'}}>{totalClicksCount}</span>
+        <span className='count' style={{position: 'absolute', top: '48px', fontSize: '8px', fontFamily: 'monospace', left: '50%', transform: 'translateX(-50%)', display: (crazyCount === 0 || !isCrazy) ? 'none' : 'block'}}>CrazyCat#{crazyCount}</span>
       </a>
     </div>
   );

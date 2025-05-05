@@ -1,6 +1,7 @@
 ---
 title: Adobe.com
 publishDate: 2024-12-13 00:00:00
+featured: true
 img: /assets/adobe/adobeAi.webp
 img_mask: /assets/adobe/adobeAi-mask.png
 img_alt: Adobe consonant and milo development
@@ -46,6 +47,6 @@ The adobe blog has had a long windy road and fortunately is on stable ground now
 ![image info](/public/assets/adobe/adobe-blog.png)
 
 ### Adobe Consonant
-Consonant is Adobes design system. Built for unity across all the adobe.com subsidiary sites. The aim is to have consistency and control over their style guide and designs so all the pages under this umbrella have a unified look and feel. I worked on the liaison between design, project owners, stake holders and developers to maintain sanity between this dynamic solar system. 
+Consonant is Adobes design system. Built for unity across all the adobe.com subsidiary sites. The aim is to have consistency and control over their style guide and designs so all the pages under this umbrella have a unified look and feel. I worked on the liaison between design, project owners, stake holders and developers to maintain sanity between this dynamic solar system. <a href="https://thinkingbox.com/work/consonant-adobe" target="_blank">See more</a>
 
 ![image info](/public/assets/adobe/adobe-consonant.png)

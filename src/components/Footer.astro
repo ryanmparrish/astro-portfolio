@@ -1,22 +1,35 @@
 ---
 import Icon from './Icon.astro';
 import Pet from '../function-components/Pet.tsx';
+import { iconPaths } from './IconPaths';
 
 const currentYear = new Date().getFullYear();
+const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[] = [
+	{ label: 'Instagram', href: 'https://www.linkedin.com/in/ryan-parrish-6629842a/', icon: 'linkedin-logo' },
+	{ label: 'GitHub', href: 'https://github.com/ryanmparrish', icon: 'github-logo' },
+	{ label: 'CodePen', href: 'https://codepen.io/toastEater', icon: 'codepen-logo' },
+	{ label: 'Instagram', href: 'https://www.instagram.com/parrish_801/', icon: 'instagram-logo' },
+];
+
 ---
 
 <Pet client:load />
 <footer>
 	<div class="group">
 		<p>
-			Developed with <Icon icon="coffee" size="1.2em" /> on the traditional lands of the Ute, Goshute, and Shoshone and Paiute peoples.
+			Developed with <Icon icon="coffee" size="1.2em" />
 		</p>
 		<p>&copy; {currentYear} Ryan Parrish</p>
 	</div>
 	<p class="socials">
-		<a href="https://www.instagram.com/parrish_801/"> Instagram</a>
-		<a href="https://github.com/ryanmparrish"> GitHub</a>
-		<a href="https://codepen.io/toastEater"> CodePen</a>
+		{
+      iconLinks.map(({ href, icon, label }) => (
+        <a href={href} class="social" target="_blank">
+          <span class="sr-only">{label}</span>
+          <Icon icon={icon} />
+        </a>
+      ))
+    }
 	</p>
 </footer>
 <style>

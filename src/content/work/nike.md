@@ -1,6 +1,7 @@
 ---
 title: Nike
 publishDate: 2020-12-13 00:00:00
+featured: true
 img: /assets/nike/nike-rio.png
 img_mask: /assets/nike/nike-rio-mask.png
 img_alt: A screenshot of zero.nike.com internal intranet for nike business
@@ -16,10 +17,10 @@ tags:
 
 ## Zero Nike 
 
-I worked on the site [zero.nike.com](zero.nike.com), a subdomain of nike.com. 
+I worked on the site zero, a subdomain of nike.com.<br>
 (sorry this isn't a public domain) 🙁  
 
-This is the official website of Nike, a multinational corporation that designs, develops, manufactures, and markets footwear, apparel, equipment, accessories, and services.
+This is the internal website for Nike, a multinational corporation that designs, develops, manufactures, and markets footwear, apparel, equipment, accessories, and services.
 
 ---
 > Zero is Nike's intranet where employees, stakeholders and athletes go for all things happening internally at Nike
