@@ -74,6 +74,9 @@ const introSlides = {
             <li>Liaison between development, design & lead stakeholders to establish a unified design system, setting standards for development practice and cross team processes.</li>
             <li>Delivered custom solutions for clients’ business needs, data analytics and CMS integrations.</li>
           </ul>
+          <a href="../work/adobe" class="case button">
+            <img src="/assets/adobe/adobe-icon.svg" alt="" class="icon" />
+            Adobe case study</a>
         </div>
 				<div class="content">
           <p class="title"><a href="https://www.lifevantage.com/" target="_blank">LifeVantage</a> — Web Developer</p>
@@ -93,7 +96,10 @@ const introSlides = {
             <li>Interactive development using G.S.A.P., webGL, lottie 🎉</li>
             <li>Clients: Nike, Riot games, Clearlink, Arkade belts, Ski Utah, STS site, Harris Woolf Almonds, CE Solar, Black Oak Capital</li>
           </ul>
-          
+          <a href="../work/nike" class="case button">
+            <img src="/assets/nike/nike-icon.svg" alt="" class="icon" />
+            Nike case study
+          </a>
         </div>
         <div class="content">
           <p class="title"><a href="https://stgconsulting.com/" target="_blank">Software Technology Group</a> — Front End Developer</p>
@@ -105,6 +111,10 @@ const introSlides = {
             <li>Lead UI and Front-end developer on a proprietary HR software at Resource Management Inc.</li>
             <li>Front-end developer and database engineer for Court View, a highly complex justice management system.</li>
           </ul>
+          <a href="../work/rip/backcountry" class="case button">
+            <img src="/assets/rip/backcountry/backcountry-icon.svg" alt="" class="icon" />
+            Backcountry case study
+          </a>
 				</div>
         <div class="content">
           <p class="title"><a href="https://stgconsulting.com/" target="_blank">Additional Experience</a> — Full-Time & Freelance Roles</p>
@@ -128,7 +138,7 @@ const introSlides = {
 				<h2 class="section-title">Education</h2>
 				<div class="content">
 					<strong>Bachelor of Fine Arts (BFA) [2x major in Fine Art & Multimedia] @<a href="https://ncad.edu/" target="_blank">Northwest College of Art & Design</a></strong>
-          <p>Studied: painting, drawing, design, visual communication, branding, business strategy, animation, video production, web development, 3D modeling & animation, philosophy, semiotics, anthropology, history & math.</p>
+          <p>Studied: <a href="/artwork?discipline=paintings">painting</a>, <a href="/artwork?discipline=drawings">drawing</a>, <a href="/artwork?discipline=design">design</a>, visual communication, branding, business strategy, animation, video production, web development, 3D modeling & animation, philosophy, semiotics, anthropology, history & math.</p>
 				</div>
 			</section>
 
@@ -237,7 +247,7 @@ const introSlides = {
 		gap: 3.5rem;
 	}
 
-	img {
+	.slider-carousel img {
 		margin-top: 1.5rem;
 		border-radius: 1.5rem;
 		box-shadow: var(--shadow-md);
@@ -268,6 +278,20 @@ const introSlides = {
   .skills p {
     color: var(--gray-400);
     margin-bottom: 2rem;
+  }
+
+  .case {
+    margin: 1rem 0;
+    padding: 0 .5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--gray-900)
+  }
+
+  .case .icon {
+    width: 36px;
   }
 
 	.content blockquote {

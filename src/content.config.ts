@@ -16,5 +16,5 @@ export const collections = {
 			img_mask: z.string().optional(),
 			img_alt: z.string().optional(),
 		}),
-	}),
+	})
 };

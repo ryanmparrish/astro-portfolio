@@ -1,0 +1,80 @@
+{
+  "Application": "Resume",
+  "Version": "1.0",
+  "Author": "Ryan Parrish",
+  "Date": "2023-10-01",
+  "url": "https://ryanmparrish.com",
+  "summary": "Highly skilled Full Stack Developer and Designer with [Number] years of experience delivering impactful web solutions for diverse clients, including Adobe, Nike, and Backcountry.com. Proven ability to lead development teams, architect complex e-commerce platforms, and create engaging user experiences. Expertise in [Mention 2-3 key technologies, e.g., WordPress CMS, Angular.js, REST APIs].",
+    "experience": [
+      {
+        "company": "Thinkingbox",
+        "title": "Senior Developer",
+        "dates": "Feb 2021 - Present",
+        "details": [
+          "Led a focused development team at Adobe to create Milo, a product built on the AEM/EDS platform, architecting foundational components for adobe.com and subsidiary sites.",
+          "Collaborated closely with design teams and stakeholders to ensure seamless integration and optimal user experience.",
+          "Delivered impactful web solutions for clients including Chobani and Credit Acceptance."
+        ]
+      },
+      {
+        "company": "LifeVantage",
+        "title": "Web Developer",
+        "dates": "Mar 2020 - Feb 2021",
+        "details": [
+          "Engineered and maintained LifeVantage.com, a high-volume e-commerce platform built on a complex WordPress CMS, supporting intricate downline workflows and extensive multi-language capabilities.",
+          "Spearheaded the LifeVantage customer referral program, driving substantial growth in customer acquisition."
+        ]
+      },
+      {
+        "company": "Super Top Secret",
+        "title": "Interactive Developer",
+        "dates": "April 2016 - Mar 2020",
+        "details": [
+          "Integrated directly with the Nike team to develop and maintain zero.nike.com, a critical internal portal for Nike employees, associates, and athletes.",
+          "Architected a custom WordPress backend and headless Angular.js frontend, implementing complex features such as localization, third-party integrations, and custom REST APIs.",
+          "Contributed to a diverse portfolio of client projects, including Riot Games and Clearlink."
+        ]
+      },
+      {
+        "company": "Software Technology Group",
+        "title": "Front End Developer",
+        "dates": "Sept 2013 - Sept 2016",
+        "details": [
+          "Delivered front-end development for a spectrum of clients, including RMI (Resource Management), Courtview Justice Solutions, and Backcountry.com.",
+          "Demonstrated adaptability and ability to handle projects of varying complexity and scale."
+        ]
+      }
+    ],
+    "education": {
+      "institution": "North West College of Art & Design, Poulsbo, WA",
+      "degree": "B.F.A.",
+      "dates": "2001 - 2004",
+      "details": [
+        "Bachelor of Fine Arts with a double major in Fine Art/Multimedia.",
+        "Comprehensive study of traditional painting, graphic design, animation, video production, and business communications."
+      ]
+    },
+    "projects": [
+      "Adobe",
+      "Nike",
+      "Credit Acceptance",
+      "jwildmethod",
+      "Super Top Secret",
+      "Arkade Belts",
+      "RIOT games",
+      "lifevantage",
+      "TWIO brand",
+      "Harris Woolf Almonds",
+      "CE Solar",
+      "Clearlink",
+      "Listen Design",
+      "Alta Snowboard Team",
+      "Alta Radio",
+      "Backcountry.com",
+      "Scarpa",
+      "Software Technology Group",
+      "EnviorNews.tv",
+      "LinguaBear.org",
+      "KNHO Film"
+    ]
+}

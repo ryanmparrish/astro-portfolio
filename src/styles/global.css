@@ -344,7 +344,7 @@ select {
 }
 
 /* Add a subtle scale effect on hover for interactive elements */
-a:hover,
+.button:hover,
 button:hover,
 [role="button"]:hover,
 input[type="button"]:hover,

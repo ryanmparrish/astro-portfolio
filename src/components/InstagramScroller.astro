@@ -1,0 +1,301 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+
+interface InstagramPost {
+  title: string;
+  link: string;
+  pubDate: string;
+  content: string;
+  image?: string;
+}
+
+const feedUrl = 'https://rss.app/feeds/HGz2ySOvuHDvWfpD.xml';
+const CACHE_KEY = 'instagram-posts-cache';
+const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
+---
+
+<div class="instagram-grid">
+  <h3>Recent Adventures <Icon icon="instagram-logo" /></h3>
+  <div class="posts" id="instagram-posts">
+    <div class="post loading">
+      <div class="post-content">
+        <div class="skeleton-image"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-date"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ feedUrl, CACHE_KEY, CACHE_DURATION }}>
+  const postsContainer = document.getElementById('instagram-posts');
+  const corsProxy = 'https://api.allorigins.win/raw?url=';
+
+  function extractImageUrl(content) {
+    // First try media:content tag
+    const mediaMatch = content.match(/<media:content[^>]+url="([^">]+)"/);
+    if (mediaMatch && mediaMatch[1]) {
+      console.log('Found image URL from media:content:', mediaMatch[1]);
+      return mediaMatch[1];
+    }
+
+    // Then try img src tag
+    const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
+    if (imgMatch && imgMatch[1]) {
+      console.log('Found image URL from img src:', imgMatch[1]);
+      return imgMatch[1];
+    }
+
+    console.log('No image URL found in content');
+    return null;
+  }
+
+  function truncateText(text, maxLength = 100) {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  }
+
+  async function fetchImageAsBase64(imageUrl) {
+    try {
+      const response = await fetch(corsProxy + encodeURIComponent(imageUrl));
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error('Error fetching image:', error);
+      return '';
+    }
+  }
+
+  function getCachedPosts() {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
+      
+      const { timestamp, posts } = JSON.parse(cached);
+      if (Date.now() - timestamp > CACHE_DURATION) {
+        localStorage.removeItem(CACHE_KEY);
+        return null;
+      }
+      
+      return posts;
+    } catch (error) {
+      console.error('Error reading cache:', error);
+      return null;
+    }
+  }
+
+  function cachePosts(posts) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        timestamp: Date.now(),
+        posts
+      }));
+    } catch (error) {
+      console.error('Error caching posts:', error);
+    }
+  }
+
+  async function fetchInstagramPosts() {
+    if (!postsContainer) return;
+    
+    try {
+      // Check cache first
+      const cachedPosts = getCachedPosts();
+      if (cachedPosts) {
+        displayPosts(cachedPosts);
+        return;
+      }
+
+      const response = await fetch(feedUrl);
+      const xml = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(xml, 'text/xml');
+      const items = doc.querySelectorAll('item');
+      
+      const posts = await Promise.all(Array.from(items).map(async item => {
+        const content = item.querySelector('description')?.textContent || '';
+        const imageUrl = extractImageUrl(content);
+        let base64Image = '';
+        
+        if (imageUrl) {
+          try {
+            base64Image = await fetchImageAsBase64(imageUrl);
+            console.log('Successfully fetched image:', imageUrl);
+          } catch (error) {
+            console.error('Error fetching image:', error);
+          }
+        } else {
+          console.log('No image URL found in content:', content);
+        }
+
+        return {
+          title: item.querySelector('title')?.textContent || '',
+          link: item.querySelector('link')?.textContent || '',
+          pubDate: item.querySelector('pubDate')?.textContent || '',
+          content: truncateText(content.replace(/<[^>]+>/g, '')),
+          image: base64Image
+        };
+      }));
+
+      // Cache the posts
+      cachePosts(posts);
+
+      // Display the posts
+      displayPosts(posts);
+
+    } catch (error) {
+      console.error('Error fetching Instagram posts:', error);
+      if (postsContainer) {
+        postsContainer.innerHTML = '<p class="error">Unable to load Instagram posts. Please try again later.</p>';
+      }
+    }
+  }
+
+  function displayPosts(posts) {
+    if (!postsContainer) return;
+    
+    // Clear loading state
+    postsContainer.innerHTML = '';
+    
+    // Add posts to the container
+    posts.slice(0, 6).forEach(post => {
+      const postElement = document.createElement('a');
+      postElement.href = post.link;
+      postElement.target = '_blank';
+      postElement.className = 'post';
+      
+      postElement.innerHTML = `
+        <div class="post-content">
+          ${post.image ? `<img src="${post.image}" alt="${post.title}" loading="lazy" />` : ''}
+          <p>${post.content}</p>
+          <time datetime="${post.pubDate}">${new Date(post.pubDate).toLocaleDateString()}</time>
+        </div>
+      `;
+      
+      postsContainer.appendChild(postElement);
+    });
+  }
+
+  // Fetch posts when the component is mounted
+  fetchInstagramPosts();
+</script>
+
+<style>
+  :global(.instagram-grid) {
+    margin: 2rem 0;
+  }
+
+  :global(h3) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-lg);
+    color: var(--gray-0);
+    margin-bottom: 1rem;
+  }
+
+  :global(.posts) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  :global(.post) {
+    text-decoration: none;
+    color: var(--gray-200);
+    background: var(--gray-999);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: transform var(--theme-transition);
+    width: 100%;
+  }
+
+  :global(.post:hover) {
+    transform: translateY(-2px);
+  }
+
+  :global(.post-content) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+  }
+
+  :global(.post img) {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  :global(.post p) {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    flex-grow: 1;
+  }
+
+  :global(.post time) {
+    font-size: var(--text-xs);
+    color: var(--gray-400);
+  }
+
+  /* Loading skeleton styles */
+  :global(.loading .skeleton-image) {
+    width: 100%;
+    height: 200px;
+    background: var(--gray-800);
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    animation: pulse 1.5s infinite;
+  }
+
+  :global(.loading .skeleton-text) {
+    width: 100%;
+    height: 1rem;
+    background: var(--gray-800);
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    animation: pulse 1.5s infinite;
+  }
+
+  :global(.loading .skeleton-date) {
+    width: 50%;
+    height: 0.75rem;
+    background: var(--gray-800);
+    border-radius: 0.25rem;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.6; }
+  }
+
+  :global(.error) {
+    color: var(--gray-400);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  @media (max-width: 50em) {
+    :global(.posts) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 30em) {
+    :global(.posts) {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -10,7 +10,7 @@ tags:
   - Strategy
   - C.M.S.
   - E.D.S.
-draft: true
+featured: true
 ---
 
 ## Credit Acceptance on E.D.S.

@@ -1,7 +1,6 @@
 ---
 title: Black Oak Capitol
 publishDate: 2018-06-04 00:00:00
-featured: true
 img: /assets/rip/black-oak-capitol.png
 img_alt: Black Oak cap screenshot
 description: |
