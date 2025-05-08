@@ -1,12 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-
 import BaseLayout from '../layouts/BaseLayout.astro';
-
 import ContactCTA from '../components/ContactCTA.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 import Hero from '../components/Hero.astro';
 import Grid from '../components/Grid.astro';
+import { fade } from 'astro:transitions';
 
 const projects = (await getCollection('work'))
 .filter((project) => !project.data.draft) // Filter out projects where data.draft is true
@@ -28,8 +27,8 @@ const projects = (await getCollection('work'))
 			/>
 			<Grid variant="offset">
 				{
-					projects.map((project) => (
-						<li>
+					projects.map((project, index) => (
+						<li style={`--delay: ${index * 0.1}s`} transition:animate={fade({ duration: "0.5s" })}>
 							<PortfolioPreview project={project} />
 						</li>
 					))
@@ -49,6 +48,22 @@ const projects = (await getCollection('work'))
     --bg-image-main: url('/assets/work/bg-main-dark-800w.jpg');
   }
 
+  li {
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   @media (min-width: 50em) {
     :root {

@@ -388,16 +388,31 @@ const disciplines = [...new Set(images.map(img => img.discipline))];
     const filterButtons = document.querySelectorAll('.filter-btn');
     let currentIndex = 0;
 
+    // Function to apply filter
+    function applyFilter(discipline: string | null) {
+      // Update active button
+      filterButtons.forEach(btn => {
+        if (btn.getAttribute('data-discipline') === discipline) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Filter items
+      items.forEach(item => {
+        if (discipline === 'all' || item.getAttribute('data-discipline') === discipline) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
     // Set initial active state from URL
     const urlParams = new URLSearchParams(window.location.search);
     const discipline = urlParams.get('discipline')?.toLowerCase() || 'all';
-    filterButtons.forEach(btn => {
-      if (btn.getAttribute('data-discipline') === discipline) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
+    applyFilter(discipline);
 
     // Filter functionality
     filterButtons.forEach(button => {
@@ -414,18 +429,7 @@ const disciplines = [...new Set(images.map(img => img.discipline))];
         }
         window.history.pushState({}, '', url);
         
-        // Update active button
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        // Filter items
-        items.forEach(item => {
-          if (discipline === 'all' || item.getAttribute('data-discipline') === discipline) {
-            item.classList.remove('hidden');
-          } else {
-            item.classList.add('hidden');
-          }
-        });
+        applyFilter(discipline);
       });
     });
 

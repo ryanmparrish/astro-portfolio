@@ -37,7 +37,7 @@
 	--accent-text-shadow: var(--gray-0);
 
 	--link-color: var(--accent-regular);
-
+  --link-hover-color: hsl(180, 44%, 41%);
 	/* Gradients */
 	--gradient-stop-1: var(--accent-light);
 	--gradient-stop-2: var(--accent-regular);
@@ -114,6 +114,7 @@
 	--accent-moon: #1c0056;
 
 	--link-color: var(--accent-dark);
+  --link-hover-color: hsla(180, 89%, 67%, 0.83);
 
 	--gradient-stop-1: #4c11c6;
 	--gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);
@@ -285,6 +286,37 @@ input[type="password"],
 textarea,
 select {
   cursor: pointer;
+}
+
+/* Main content link styles */
+main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button"]) {
+  position: relative;
+  text-decoration: none;
+  color: var(--link-color);
+  transition: color var(--theme-transition);
+}
+
+main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button"])::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--link-color);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button"]):hover::after,
+main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button"]):focus::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button"]):hover {
+  color: var(--link-hover-color);
 }
 
 .cursor-dot {

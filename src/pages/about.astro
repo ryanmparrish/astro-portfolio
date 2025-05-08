@@ -5,6 +5,7 @@ import IntroSlider from '../components/IntroSlider.astro';
 import InstagramScroller from '../components/InstagramScroller.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
+import CallToAction from '../components/CallToAction.astro';
 
 const introSlides = {
 	slide_list: [
@@ -19,6 +20,16 @@ const introSlides = {
 		},
 	],
 };
+
+// Instagram post URLs to embed
+const instagramPosts = [
+	'https://www.instagram.com/p/DCsJbVYz_r1/',
+  'https://www.instagram.com/p/BRHePyWgYVt/',
+  'https://www.instagram.com/p/B58B0wSB-Vq/',
+  'https://www.instagram.com/reel/CdvlQLsjjRt/',
+  'https://www.instagram.com/p/CpgE5RXPgB9/',
+  'https://www.instagram.com/p/ByiTHJDBX2T/',
+];
 
 ---
 
@@ -70,9 +81,9 @@ const introSlides = {
           <em>Feb 2021 - PRESENT</em>
           <ul>
             <li>Led a development team at Adobe using Edge Delivery Service for adobe.com and subsidiary sites.</li>
-            <li>Contributed to the ‘Dexter’ codebase, (Adobe’s internal instance of A.E.M), to expand component functionality.</li>
+            <li>Contributed to the 'Dexter' codebase, (Adobe's internal instance of A.E.M), to expand component functionality.</li>
             <li>Liaison between development, design & lead stakeholders to establish a unified design system, setting standards for development practice and cross team processes.</li>
-            <li>Delivered custom solutions for clients’ business needs, data analytics and CMS integrations.</li>
+            <li>Delivered custom solutions for clients' business needs, data analytics and CMS integrations.</li>
           </ul>
           <a href="../work/adobe" class="case button">
             <img src="/assets/adobe/adobe-icon.svg" alt="" class="icon" />
@@ -91,7 +102,7 @@ const introSlides = {
           <em>April 2016 - Mar 2020</em>
           <ul>
             <li>Created C.M.S. solutions in Python/Wagtail/React for numerous top clients. 💰</li>
-            <li>Maintained Nike’s zero.nike.com internal ‘intranet’ - A headless wordpress/angular site with localization.</li>
+            <li>Maintained Nike's zero.nike.com internal 'intranet' - A headless wordpress/angular site with localization.</li>
             <li>Built angular components & services, wordpress plugins, and custom API integrations.</li>
             <li>Interactive development using G.S.A.P., webGL, lottie 🎉</li>
             <li>Clients: Nike, Riot games, Clearlink, Arkade belts, Ski Utah, STS site, Harris Woolf Almonds, CE Solar, Black Oak Capital</li>
@@ -209,7 +220,22 @@ const introSlides = {
           </blockquote>
           <p>Follow me on <a href="https://www.instagram.com/ryanparrish/" target="_blank"><Icon icon="instagram-logo" /> Instagram</a> for more of my adventures!</p>
           <br>
-          <InstagramScroller />
+          <div class="instagram-grid">
+            {instagramPosts.map((postUrl, index) => (
+              <div class="instagram-item fade-in-item" style={`--delay: ${index * 0.1}s`}>
+                <iframe
+                  src={`${postUrl}embed/captioned/`}
+                  title="Instagram post"
+                  loading="lazy"
+                  class="instagram-embed"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  scrolling="no"
+                  style="transform: translateY(-55px);"
+                ></iframe>
+              </div>
+            ))}
+          </div>
           <br>
           <p>This website? Whipped up with <a href="https://astro.build/" target="_blank">Astro.js</a>. Bonus feature: 1 feral <a href="#meow-cat" id="meow-cat-link">cat</a> adopted. No idea why. 🧶</p>
         </div>
@@ -302,24 +328,12 @@ const introSlides = {
 		color: var(--gray-0);
 	}
 
-	.content :global(a) {
-		text-decoration: 1px solid underline transparent;
-		text-underline-offset: 0.25em;
-		transition: text-decoration-color var(--theme-transition);
+	.content label,
+	.content .title {
+		font-size: var(--text-md);
+		color: var(--gray-0);
+		font-weight: 600;
 	}
-
-	.content :global(a:hover),
-	.content :global(a:focus) {
-		text-decoration-color: currentColor;
-	}
-  
-  .content label,
-  .content .title {
-    font-size: var(--text-md);
-    color: var(--gray-0);
-    font-weight: 600;
-
-  }
 
 	@media (min-width: 50em) {
 		.about {
@@ -336,4 +350,83 @@ const introSlides = {
 			font-size: var(--text-lg);
 		}
 	}
+
+	.instagram-section {
+		margin-top: 4rem;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.section-header h2 {
+		font-size: var(--text-2xl);
+		margin-bottom: 0.5rem;
+	}
+
+	.instagram-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1rem;
+		width: 100%;
+	}
+
+	.instagram-item {
+		aspect-ratio: 1;
+		overflow: hidden;
+		border-radius: 0.5rem;
+		transition: transform 0.3s ease;
+		background: var(--gray-900);
+		height: 250px;
+	}
+
+	.instagram-item:hover {
+		transform: scale(1.05);
+	}
+
+	.instagram-embed {
+		width: 100%;
+		height: 300px;
+		border: none;
+		overflow: hidden;
+	}
+
+	.cta {
+		margin-top: 2rem;
+		text-align: center;
+	}
+
+	@media (min-width: 50em) {
+		.instagram-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 2rem;
+		}
+	}
 </style>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+						// Once the animation is triggered, we can stop observing
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{
+				// Start animation when the element is 20% from the bottom of the viewport
+				rootMargin: '0px 0px -20% 0px',
+				threshold: 0.1
+			}
+		);
+
+		// Observe all fade-in items
+		document.querySelectorAll('.fade-in-item').forEach((item) => {
+			observer.observe(item);
+		});
+	});
+</script>
