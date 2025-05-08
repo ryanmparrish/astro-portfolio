@@ -1,8 +1,9 @@
 ---
-import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Icon from '../components/Icon.astro';
+import { readdir } from 'node:fs/promises';
+import { join } from 'node:path';
 
 // Get the current discipline from URL params
 const currentDiscipline = Astro.url.searchParams.get('discipline')?.toLowerCase() || 'all';
@@ -16,15 +17,6 @@ interface ArtworkMetadata {
   description?: string;
 }
 
-interface ImageFile {
-  default: {
-    src: string;
-  };
-}
-
-// Get the list of image files
-const imageFiles = await Astro.glob<ImageFile>('/public/assets/artwork/*.{png,jpg,jpeg,gif,webp}');
-
 // Function to determine discipline from filename
 function getDisciplineFromFilename(filename: string): string {
   const lowerFilename = filename.toLowerCase();
@@ -34,10 +26,13 @@ function getDisciplineFromFilename(filename: string): string {
   return 'other';
 }
 
+// Get the list of image files from the public directory
+const artworkDir = join(process.cwd(), 'public', 'assets', 'artwork');
+const files = await readdir(artworkDir);
+const imageFiles = files.filter((file: string) => /\.(png|jpg|jpeg|gif|webp)$/i.test(file));
+
 // Convert to metadata format
-const images: ArtworkMetadata[] = imageFiles.map((file: ImageFile) => {
-  // Extract just the filename from the full path
-  const filename = file.default.src.split('/').pop() || '';
+const images: ArtworkMetadata[] = imageFiles.map((filename: string) => {
   const nameWithoutExt = filename.split('.')[0];
   return {
     src: `/assets/artwork/${filename}`,

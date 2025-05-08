@@ -20,6 +20,7 @@
     "typescript": "^5.8.2"
   },
   "devDependencies": {
+    "@types/node": "^22.15.17",
     "astro-relative-links": "^0.4.2"
   }
 }
