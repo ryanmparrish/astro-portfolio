@@ -84,6 +84,13 @@ const roles: { icon: 'code' | 'feather' | 'heartbeat' | 'yin-yang', label: strin
 					<p>Take a look below at some of my featured work for clients from the past few years.</p>
 				</header>
 
+				<div class="cta">
+					<CallToAction href="/work/">
+						View All
+						<Icon icon="arrow-right" size="1.2em" />
+					</CallToAction>
+				</div>
+
 				<div class="gallery">
 					<Grid variant="offset">
 						{
@@ -95,13 +102,6 @@ const roles: { icon: 'code' | 'feather' | 'heartbeat' | 'yin-yang', label: strin
 						}
 					</Grid>
 				</div>
-
-				<div class="cta">
-					<CallToAction href="/work/">
-						View All
-						<Icon icon="arrow-right" size="1.2em" />
-					</CallToAction>
-				</div>
 			</section>
 		</main>
 
@@ -111,11 +111,11 @@ const roles: { icon: 'code' | 'feather' | 'heartbeat' | 'yin-yang', label: strin
 
 <style>
 	:root {
-		--bg-image-main: url('/assets/index/bg-main-light-800w.jpg');
+		--bg-image-main: url('/assets/backgrounds/bg-main-light-800w.jpg');
 	}
 
 	:root.theme-dark {
-		--bg-image-main: url('/assets/index/bg-main-dark-800w.jpg');
+		--bg-image-main: url('/assets/backgrounds/bg-main-dark-800w.jpg');
 	}
 
 	.fade-in-item {
@@ -132,10 +132,10 @@ const roles: { icon: 'code' | 'feather' | 'heartbeat' | 'yin-yang', label: strin
 
 	@media (min-width: 50em) {
 		:root {
-			--bg-image-main: url('/assets/index/bg-main-light-1440w.jpg');
+			--bg-image-main: url('/assets/backgrounds/bg-main-light-1440w.jpg');
 		}
 		:root.theme-dark {
-			--bg-image-main: url('/assets/index/bg-main-dark-1440w.jpg');
+			--bg-image-main: url('/assets/backgrounds/bg-main-dark-1440w.jpg');
 		}
 	}
 

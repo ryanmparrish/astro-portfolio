@@ -27,6 +27,7 @@
 
 	--accent-sun: rgb(255, 255, 255);
 	--accent-moon: hsla(280, 89%, 67%, 0.33);
+	--accent-teal: hsl(180, 44%, 41%);
 
 	--accent-light: #c561f6;
 	--accent-regular: #7611a6;
@@ -37,7 +38,6 @@
 	--accent-text-shadow: var(--gray-0);
 
 	--link-color: var(--accent-regular);
-  --link-hover-color: hsl(180, 44%, 41%);
 	/* Gradients */
 	--gradient-stop-1: var(--accent-light);
 	--gradient-stop-2: var(--accent-regular);
@@ -114,7 +114,7 @@
 	--accent-moon: #1c0056;
 
 	--link-color: var(--accent-dark);
-  --link-hover-color: hsla(180, 89%, 67%, 0.83);
+	--accent-teal: hsla(180, 89%, 67%, 0.83);
 
 	--gradient-stop-1: #4c11c6;
 	--gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);
@@ -316,7 +316,7 @@ main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button
 }
 
 main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button"]):hover {
-  color: var(--link-hover-color);
+  color: var(--accent-teal);
 }
 
 .cursor-dot {
@@ -339,7 +339,6 @@ main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button
   background: rgba(147, 51, 234, 0.2);
   border-radius: 50%;
   z-index: 9999;
-  animation: jellyPulse 2s ease-in-out infinite;
   filter: invert(0);
 }
 
@@ -347,32 +346,7 @@ main a:not(.button):not([role="button"]):not([class*="btn"]):not([class*="button
   width: 48px;
   height: 48px;
   background: rgba(147, 51, 234, 0.5);
-  animation: jellyPulseHover 1.5s ease-in-out infinite;
   filter: hue-rotate(270deg);
-}
-
-@keyframes jellyPulse {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes jellyPulseHover {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
 }
 
 /* Add a subtle scale effect on hover for interactive elements */

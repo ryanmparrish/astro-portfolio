@@ -61,7 +61,7 @@ const isCurrentPage = (href: string) => {
 		</ul>
 	</noscript>
 	<noscript>
-		<div class="menu-footer">
+		<div class="social-items">
 			<div class="socials">
 				{
 					iconLinks.map(({ href, icon, label }) => (
@@ -86,7 +86,7 @@ const isCurrentPage = (href: string) => {
 				))
 			}
 		</ul>
-		<div class="menu-footer">
+		<div class="social-items">
 			<div class="socials">
 				{
 					iconLinks.map(({ href, icon, label }) => (
@@ -227,7 +227,7 @@ const isCurrentPage = (href: string) => {
 		color: var(--gray-0);
 	}
 
-	.menu-footer {
+	.social-items {
 		--icon-size: var(--text-xl);
 		--icon-padding: 0.5rem;
 
@@ -257,7 +257,7 @@ const isCurrentPage = (href: string) => {
 
 	.social:hover,
 	.social:focus {
-		color: var(--accent-text-over);
+		color: var(--accent-teal);
 	}
 
 	.theme-toggle {
@@ -326,7 +326,7 @@ const isCurrentPage = (href: string) => {
 			background-color: var(--accent-regular);
 		}
 
-		.menu-footer {
+		.social-items {
 			--icon-padding: 0.375rem;
 
 			justify-self: flex-end;

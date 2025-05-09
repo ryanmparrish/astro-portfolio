@@ -33,12 +33,14 @@ const { href } = Astro.props;
     position: relative;
     z-index: 1;
     transition: transform var(--theme-transition);
+		color: var(--accent-text-over);
   }
 
   .mask {
     position: absolute;
     inset: 100% 0 0;
     background: var(--gradient-accent-orange);
+		color: var(--accent-text-over);
     mix-blend-mode: overlay;
     transition: background-color var(--theme-transition), top var(--theme-transition);
     display: flex;
