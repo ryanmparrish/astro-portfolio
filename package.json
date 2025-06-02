@@ -11,6 +11,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.2.7",
+    "@astrojs/sitemap": "^3.4.0",
     "@types/matter-js": "^0.19.8",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
