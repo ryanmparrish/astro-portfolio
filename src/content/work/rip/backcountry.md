@@ -12,7 +12,7 @@ tags:
   - R.I.P.
 ---
 
-I worked as a vendor at <a href="backcountry.com" target="_blank">backcountry.com</a> to help them build a number of landing pages and e-commerce tools. Part of this effort was creating a collections page that could populate entire product collections based on an array of skews. 
+I worked as a vendor at <a href="https://backcountry.com" target="_blank">backcountry.com</a> to help them build a number of landing pages and e-commerce tools. Part of this effort was creating a collections page that could populate entire product collections based on an array of skews. 
 
 > Skiing, biking, hiking—our passions are their passions. We connect people to the outdoors.
 

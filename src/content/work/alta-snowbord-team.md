@@ -14,7 +14,7 @@ tags:
   - Passion
 ---
 
-I built and maintain the site <a href="altasnowboardteam.com" target="_blank">altasnowboardteam.com</a>
+I built and maintain the site <a href="https://altasnowboardteam.com" target="_blank">altasnowboardteam.com</a>
 
 This is build on `wordpress` and features an e-commerce service. I've worked w/ the founder in developing this site so there is a place to buy swag, post recent updates and have a place for the chaos that is brewing up Utah's coveted little cottonwood canyon. Shred the gnar and get some swag today.
 

@@ -17,7 +17,7 @@ tags:
 
 > Investigative reporting on what matters
 
-I worked w/ the founder to build this site and still maintain it today. The design side hasn't gotten all the love it deserves but as the old saying goes, "content is king". This is a passion project that aligns w/ my views on environmental policy change and transparent new reporting. <a href="environews.tv" target="_blank">environews.tv</a>
+I worked w/ the founder to build this site and still maintain it today. The design side hasn't gotten all the love it deserves but as the old saying goes, "content is king". This is a passion project that aligns w/ my views on environmental policy change and transparent new reporting. <a href="https://environews.tv" target="_blank">environews.tv</a>
 
 ![image info](/public/assets/environews/enewslogo.png)
 
