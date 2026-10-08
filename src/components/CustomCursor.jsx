@@ -5,6 +5,7 @@ function CustomCursor() {
   const [trailingPosition, setTrailingPosition] = useState({ x: 0, y: 0 });
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isOverPet, setIsOverPet] = useState(false);
   const [hoverElement, setHoverElement] = useState(null);
   const requestRef = useRef();
   const previousTimeRef = useRef();
@@ -28,13 +29,18 @@ function CustomCursor() {
       setHoverElement(null);
     };
 
+    const handleDocumentMouseOver = (e) => {
+      setIsOverPet(e.target instanceof Element && Boolean(e.target.closest('#meow-cat')));
+    };
+
     // Animation loop for trailing effect
     const animate = (time) => {
       if (previousTimeRef.current !== undefined) {
         if (isHovering && hoverElement) {
           // Get element's position and dimensions
           const rect = hoverElement.getBoundingClientRect();
-          const margin = 8; // Margin around the element
+          const inheritRadius = hoverElement.style.borderRadius || '999em';
+          const margin = 2; // Margin around the element
           
           // Calculate target position (center of the element)
           const targetX = rect.left + rect.width / 2;
@@ -55,7 +61,7 @@ function CustomCursor() {
           if (trailingCursor) {
             trailingCursor.style.width = `${targetWidth}px`;
             trailingCursor.style.height = `${targetHeight}px`;
-            trailingCursor.style.borderRadius = '4px';
+            trailingCursor.style.borderRadius = inheritRadius;
           }
         } else {
           // Normal cursor movement when not hovering
@@ -97,6 +103,7 @@ function CustomCursor() {
 
     // Add event listeners
     window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseover', handleDocumentMouseOver);
     
     // Add hover detection for interactive elements
     const interactiveElements = document.querySelectorAll('a:not(.card), button:not(.card), [role="button"]:not(.card), input:not(.card), textarea:not(.card), select:not(.card)');
@@ -110,6 +117,7 @@ function CustomCursor() {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseover', handleDocumentMouseOver);
       cancelAnimationFrame(requestRef.current);
       interactiveElements.forEach(element => {
         element.removeEventListener('mouseenter', handleMouseEnter);
@@ -146,10 +154,10 @@ function CustomCursor() {
           zIndex: 9999,
           width: '20px',
           height: '20px',
-          backgroundColor: 'rgba(147, 51, 234, 0.2)',
           border: '1px solid rgb(147, 51, 234)',
           borderRadius: '50%',
-          transition: 'width 0.2s, height 0.2s, border-radius 0.2s, background-color 0.2s',
+          opacity: isOverPet ? 0 : 1,
+          transition: 'width 0.2s, height 0.2s, border-radius 0.2s, background-color 0.2s, opacity 0.15s',
         }}
       />
     </>
