@@ -4,95 +4,146 @@ interface Props {
 }
 
 const { href } = Astro.props;
+const filterId = `goo-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<a href={href} target="_blank">
-  <div class="face"><slot/></div>
-  <div class="mask"><slot/></div>
+<a href={href} target="_blank" rel="noreferrer" class="cta-link" data-gooey>
+  <span class="gooey-fx" style={`filter: url('#${filterId}');`} aria-hidden="true">
+    <span class="gooey-shape"></span>
+    <span class="gooey-dot"></span>
+  </span>
+  <span class="cta-label"><slot /></span>
+  <svg class="gooey-filter" xmlns="http://www.w3.org/2000/svg" version="1.1" aria-hidden="true">
+    <defs>
+      <filter id={filterId}>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur" />
+        <feColorMatrix
+          in="blur"
+          mode="matrix"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -10"
+          result="goo"
+        />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
 </a>
 
 <style>
-	a {
-		position: relative;
-		display: flex;
-		place-content: center;
-		text-align: center;
-		padding: 0.5em .75em;
-		gap: 0.8em;
-		color: var(--accent-text-over);
-		text-decoration: none;
-		line-height: 1.1;
-		/* border-radius: 999rem; */
-		overflow: hidden;
-		background: var(--gradient-accent-orange);
-		/* box-shadow: var(--shadow-md); */
-		white-space: nowrap;
-	}
+  .cta-link {
+    position: relative;
+    display: inline-flex;
+    place-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0.5em 0.75em;
+    gap: 0.8em;
+    color: var(--accent-text-over);
+    background: var(--accent-regular);
+    text-decoration: none;
+    line-height: 1.1;
+    border-radius: 999rem;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* no overflow: hidden here — the blob needs room to bulge past the pill */
 
-  .face {
+    &:hover .cta-label {
+      opacity: 1;
+      color: var(--accent-text-over-hover);
+    } 
+  }
+
+  /* Filtered layer: holds only the pill shape + the follower dot,
+     so the goo effect never touches the text on top of it. */
+  .gooey-fx {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .gooey-shape {
+    position: absolute;
+    inset: 0;
+    border-radius: 999rem;
+    background: var(--accent-regular);
+  }
+
+  .cta-label {
     position: relative;
     z-index: 1;
-    transition: transform var(--theme-transition);
-		color: var(--accent-text-over);
+    opacity: .75;
+    transition: opacity 0.2s;
   }
 
-  .mask {
+  .gooey-dot {
     position: absolute;
-    inset: 100% 0 0;
-    background: var(--gradient-accent-orange);
-		color: var(--accent-text-over);
-    mix-blend-mode: overlay;
-    transition: background-color var(--theme-transition), top var(--theme-transition);
-    display: flex;
-    place-content: center;
-    text-align: center;
-    padding: 0.5em .75em;
-    gap: 0.8em;
-    line-height: 1.1;
+    left: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    visibility: hidden;
+    background: var(--accent-regular);
   }
 
-	a:hover {
-		.face {
-      transform: translateY(-150%);
-    }
-    .mask {
-      top: 0;
-    }
-	}
-
-	a:focus {
-    .mask {
-      mix-blend-mode: normal;
-      text-shadow: 0 0 0.5em var(--accent-text-shadow);
-    }
-	}
-
-	@media (min-width: 20em) {
-		a {
-			font-size: var(--text-lg);
-		}
-	}
-
-	/* Overlay for hover effects. */
-	a::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		transition: background-color var(--theme-transition);
-		mix-blend-mode: overlay;
-		background-color: var(--gradient-accent);
-	}
-
-	a:focus::after,
-	a:hover::after {
-		background-color: hsla(var(--gray-999-basis), 0.3);
-	}
-
-	@media (min-width: 50em) {
-		a {
-			/* padding: 1.125rem 2.5rem; */
-			font-size: var(--text-xl);
-		}
-	}
+  .gooey-filter {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
 </style>
+
+<script>
+  const initGooeyButtons = () => {
+    if (window.__gooeyBound) return;
+    window.__gooeyBound = true;
+
+    const margin = 90;
+    const size = 90;
+
+    const calcDistance = (mouse, bounds) => {
+      const { clientX: mX, clientY: mY } = mouse;
+      const left = Math.min(1, (mX - (bounds.x - margin)) / (margin + bounds.width / 2));
+      const right = Math.min(1, -(mX - (bounds.x + bounds.width + margin)) / (margin + bounds.width / 2));
+      const top = Math.min(1, (mY - (bounds.y - margin)) / (margin + bounds.height / 2));
+      const bottom = Math.min(1, -(mY - (bounds.y + bounds.height + margin)) / (margin + bounds.height / 2));
+      return Math.min(left, right, top, bottom);
+    };
+
+    window.addEventListener('mousemove', (e) => {
+      document.querySelectorAll('[data-gooey]').forEach((button) => {
+        const dot = button.querySelector('.gooey-dot');
+        if (!dot) return;
+
+        const bounds = button.getBoundingClientRect();
+        const { clientX: x, clientY: y } = e;
+
+        const inside =
+          x > bounds.x - margin &&
+          x < bounds.x + bounds.width + margin &&
+          y > bounds.y - margin &&
+          y < bounds.y + bounds.height + margin;
+
+        if (!inside) {
+          dot.style.visibility = 'hidden';
+          return;
+        }
+
+        const distance = calcDistance(e, bounds);
+        const dotSize = size * distance;
+
+        dot.style.width = `${dotSize}px`;
+        dot.style.height = `${dotSize}px`;
+        dot.style.visibility = 'visible';
+        dot.style.left = `${x - bounds.x - dotSize / 2}px`;
+        dot.style.top = `${y - bounds.y - dotSize / 2}px`;
+      });
+    });
+  };
+
+  document.addEventListener('astro:page-load', initGooeyButtons);
+  initGooeyButtons();
+</script>
