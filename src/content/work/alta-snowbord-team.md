@@ -1,6 +1,7 @@
 ---
 title: Alta Snowboard Team
 publishDate: 2021-10-02 00:00:00
+featured: true
 img: /assets/ast/astmonstertopper.jpg
 img_mask: /assets/ast/astmonstertopper-mask.jpg
 img_alt: Alta snowboard team graphic showing main logo
