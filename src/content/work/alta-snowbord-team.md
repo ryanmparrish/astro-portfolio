@@ -19,7 +19,12 @@ I built and maintain the site <a href="https://altasnowboardteam.com" target="_b
 
 This is build on `wordpress` and features an e-commerce service. I've worked w/ the founder in developing this site so there is a place to buy swag, post recent updates and have a place for the chaos that is brewing up Utah's coveted little cottonwood canyon. Shred the gnar and get some swag today.
 
+
+![Current Alta Snowboard Team homepage with its seasonal campaign over an Alta mountain backdrop](/assets/ast/ast-homepage-current.png)
+
 ## Alta Snowboard Team
+Logo by <a href="https://www.listendesign.com/" target="_blank" rel="noopener noreferrer">Listen Design</a>.
+
 ![image info](/public/assets/ast/sticker.png)
 
 Many Utah snowboarders as well as avid traveling riders have been frustrated by the policy of not allowing riders to load the lifts.  The Alta Snowboard Team has not and will not be discouraged by a mere lift restriction.  AST shall not be kept from shredding the amazing snow that falls on the magical slopes of Alta.
